@@ -1,0 +1,9 @@
+{
+  "experiment": "specification_synthesis",
+  "n_specifications": 100,
+  "precision": 0.892,
+  "recall": 0.876,
+  "f1": 0.884,
+  "human_review_rate": 0.35,
+  "note": "Simulated results \u2014 not real LLM output"
+}

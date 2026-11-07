@@ -1,0 +1,8 @@
+{
+  "experiment": "proof_obligation_generation",
+  "n_csr_records": 89,
+  "n_obligations": 247,
+  "obligations_per_record": 2.78,
+  "coverage": 0.892,
+  "note": "Simulated results"
+}

@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aetherproof-arch"
+version = "0.1.0a1"
+description = "AetherProof v2.0.0: Empirical implementation of the formal architecture"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Samir Baladi", email = "gitdeeper@gmail.com" }]
+maintainers = [{ name = "Samir Baladi", email = "gitdeeper@gmail.com" }]
+keywords = [
+    "formal methods", "formal verification", "specification languages",
+    "TLA+", "Why3", "Lean", "SMT", "proof obligations",
+    "incremental proving", "counterexample-guided remediation",
+    "agentic software engineering", "AetherProof",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+dependencies = [
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0", "pytest-cov>=4.0",
+    "ruff>=0.1", "mypy>=1.0",
+]
+experiments = [
+    "scikit-learn>=1.3", "matplotlib>=3.7",
+]
+
+[project.urls]
+Homepage = "https://github.com/gitdeeper15/aetherproof"
+Documentation = "https://github.com/gitdeeper15/aetherproof#readme"
+Repository = "https://github.com/gitdeeper15/aetherproof"
+"Bug Tracker" = "https://github.com/gitdeeper15/aetherproof/issues"
+"Research Paper" = "https://doi.org/10.5281/zenodo.24013124"
+"OSF Registration" = "https://doi.org/10.17605/OSF.IO/SRM2P"
+"Official Site" = "https://aetherproof-arch.netlify.app"
+"Related Work (AetherGit)" = "https://doi.org/10.5281/zenodo.23966896"
+"Related Work (AetherFlow)" = "https://doi.org/10.5281/zenodo.23979129"
+
+[project.scripts]
+aetherproof = "aetherproof.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=aetherproof"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.mypy]
+python_version = "3.9"
+strict = true

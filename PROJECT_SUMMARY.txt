@@ -1,0 +1,86 @@
+Project: AetherProof
+Full Title: AetherProof: Autonomous Formal Verification and Invariant Synthesis for Multi-Agent Software Ecosystems
+Subtitle: A Formal Architecture for Specification-Driven Proof Construction and Counterexample-Guided Remediation
+Domain: Computer Science / Software Engineering
+Subdiscipline: Formal Methods, Specification Languages, Proof Obligations, Counterexample-Guided Remediation, Agentic Software Engineering
+DOI (Zenodo): 10.5281/zenodo.24013124
+DOI URL: https://doi.org/10.5281/zenodo.24013124
+DOI (OSF): 10.17605/OSF.IO/SRM2P
+OSF URL: https://doi.org/10.17605/OSF.IO/SRM2P
+Stage: FORMALIZATION
+Version: 1.0.0
+Date: 2026-11-07
+Record ID: AETHERPROOF-01
+
+Formal Definitions: 6
+  - Definition 1: CSR Record (three identities: record, artifact, semantic)
+  - Definition 2: Semantic Relation (seven typed relations)
+  - Definition 3: Translation Classification (two orthogonal axes)
+  - Definition 4: Proof Obligation
+  - Definition 5: Proof Dependency Graph (PDG)
+  - Definition 6: Counterexample
+
+Propositions: 10 (all stated as design requirements; not formally proven)
+  - Proposition 1: Non-Substitutability
+  - Proposition 2: Orthogonality of Translation Axes
+  - Proposition 3: ODG Acyclicity
+  - Proposition 4: PDG Extends ODG
+  - Proposition 5: Invalidation via derives_from
+  - Proposition 6: Bounded Remediation
+  - Proposition 7: Specification Changes Require Human Review
+  - Proposition 8: Separation of Duties
+  - Proposition 9: Human Discharge Only When Automation Cannot
+  - Proposition 10: Trust Is Explicit
+
+Architectural Pillars: 6
+  - Pillar 1: Three-Layer Functional Specification (TLA+, Why3/Lean, SMT-LIB)
+  - Pillar 2: Canonical Specification Representation (CSR)
+  - Pillar 3: Proof Dependency Graph (PDG)
+  - Pillar 4: Counterexample-Guided Remediation
+  - Pillar 5: Protocol-Based Integration (with AetherFlow)
+  - Pillar 6: Human Review Protocol
+
+Additional Design Elements:
+  - Per-Path TCB Manifests
+  - Two-Axis Translation Classification
+  - Assumption Tracking
+  - Verdict vs. Disposition Separation
+  - Trust Hierarchy
+  - Guardrails against Specification Gaming
+
+Key Structural Claims: 10 (P1-P10, design requirements)
+
+Open Questions: 50 (Q1-Q50)
+Design Decisions: 52 (D1-D52)
+Threats: 15 (T1-T15)
+
+Implementation: Not built
+Empirical Evaluation: Not performed
+PyPI Package: Not published (planned post-empirical)
+Causal Claims: None (formal analysis only)
+
+References: 27
+Appendix A: Notation
+Appendix B: Open Questions Q1-Q50
+Appendix C: Design Decisions D1-D52
+Appendix D: Threats T1-T15
+
+Related Identifiers:
+  - AetherGit (storage layer, related work): 10.5281/zenodo.23966896
+  - AetherFlow (integration layer, related work): 10.5281/zenodo.23979129
+  - Scion position paper (prior work): 10.5281/zenodo.23934465
+
+Repositories:
+  - GitHub (primary): https://github.com/gitdeeper15/aetherproof
+  - GitLab (mirror): https://gitlab.com/gitdeeper15/aetherproof
+  - Codeberg (mirror): https://codeberg.org/gitdeeper15/aetherproof
+  - Bitbucket (mirror): https://bitbucket.org/gitdeeper15/aetherproof
+  - PyPI (planned): https://pypi.org/project/aetherproof/
+  - Zenodo: https://doi.org/10.5281/zenodo.24013124
+  - OSF: 10.17605/OSF.IO/SRM2P
+  - Website: https://aetherproof-arch.netlify.app
+
+Author: Samir Baladi
+ORCID: 0009-0003-8903-0029
+Affiliation: Ronin Institute / Rite of Renaissance
+Email: gitdeeper@gmail.com

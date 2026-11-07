@@ -1,0 +1,73 @@
+{
+  "project": "AetherProof",
+  "version": "1.0.0",
+  "date": "2026-11-07",
+  "status": "formalization_stage",
+  "record_id": "AETHERPROOF-01",
+  "formal_definitions": {
+    "csr_record": {
+      "statement": "csr = (csr_id, artifact_hash, semantic_id, layer, language, content, semantic_role, requirements_refs, assumptions, relations, version, provenance)",
+      "status": "defined"
+    },
+    "semantic_relation": {
+      "statement": "Seven typed relations: refines, instantiates, approximates, implies, contradicts, depends_on, supersedes",
+      "status": "defined"
+    },
+    "translation_classification": {
+      "statement": "Two orthogonal axes: Axis A (Semantic Relationship), Axis B (Verification Property)",
+      "status": "defined"
+    },
+    "proof_obligation": {
+      "statement": "O = (id, property, assumptions, source_csr, discharged_by, verdict)",
+      "status": "defined"
+    },
+    "pdg": {
+      "statement": "PDG = (Obligations ∪ Evidence ∪ Assumptions, Edges)",
+      "status": "defined"
+    },
+    "counterexample": {
+      "statement": "C = (id, obligation, witness, refutation_evidence, type, provenance)",
+      "status": "defined"
+    }
+  },
+  "propositions": {
+    "p1_non_substitutability": "design_requirement",
+    "p2_orthogonality": "design_requirement",
+    "p3_odg_acyclicity": "design_requirement",
+    "p4_pdg_extends_odg": "design_requirement",
+    "p5_invalidation_via_derives_from": "design_requirement",
+    "p6_bounded_remediation": "design_requirement",
+    "p7_spec_changes_require_review": "design_requirement",
+    "p8_separation_of_duties": "design_requirement",
+    "p9_human_discharge_only_when_automation_cannot": "design_requirement",
+    "p10_trust_is_explicit": "design_requirement"
+  },
+  "architectural_pillars": [
+    "Three-Layer Functional Specification",
+    "Canonical Specification Representation (CSR)",
+    "Proof Dependency Graph (PDG)",
+    "Counterexample-Guided Remediation",
+    "Protocol-Based Integration (with AetherFlow)",
+    "Human Review Protocol"
+  ],
+  "open_questions": {
+    "total": 50,
+    "status": "open",
+    "note": "Q2 (semantic consistency) is the most consequential open question."
+  },
+  "design_decisions": {
+    "total": 52
+  },
+  "threats": {
+    "total": 15,
+    "note": "All threats are mitigated with residual risk, not eliminated."
+  },
+  "implementation": "not_built",
+  "empirical_work": "not_performed",
+  "causal_claims": "none",
+  "relation_to_aethergit": "related work — AetherGit provides storage layer",
+  "relation_to_aetherflow": "related work — AetherFlow provides integration layer",
+  "doi": "10.5281/zenodo.24013124",
+  "osf_doi": "10.17605/OSF.IO/SRM2P",
+  "doi_url": "https://doi.org/10.5281/zenodo.24013124"
+}

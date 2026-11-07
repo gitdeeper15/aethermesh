@@ -1,0 +1,110 @@
+{
+  "manifest_version": "1.0",
+  "project": {
+    "name": "AetherProof",
+    "full_title": "AetherProof: Autonomous Formal Verification and Invariant Synthesis for Multi-Agent Software Ecosystems",
+    "subtitle": "A Formal Architecture for Specification-Driven Proof Construction and Counterexample-Guided Remediation",
+    "version": "1.0.0",
+    "type": "research_paper",
+    "status": "formalization_stage",
+    "release_date": "2026-11-07",
+    "language": "en",
+    "doi": "10.5281/zenodo.24013124",
+    "doi_url": "https://doi.org/10.5281/zenodo.24013124",
+    "record_id": "AETHERPROOF-01"
+  },
+  "author": {
+    "name": "Samir Baladi",
+    "role": "Interdisciplinary AI Researcher",
+    "affiliation": "Ronin Institute / Rite of Renaissance",
+    "email": "gitdeeper@gmail.com",
+    "orcid": "0009-0003-8903-0029"
+  },
+  "formal_definitions": [
+    {
+      "id": "D1",
+      "name": "CSR Record",
+      "statement": "csr = (csr_id, artifact_hash, semantic_id, layer, language, content, semantic_role, requirements_refs, assumptions, relations, version, provenance)",
+      "status": "defined"
+    },
+    {
+      "id": "D2",
+      "name": "Semantic Relation",
+      "statement": "Seven typed relations: refines, instantiates, approximates, implies, contradicts, depends_on, supersedes",
+      "status": "defined"
+    },
+    {
+      "id": "D3",
+      "name": "Translation Classification",
+      "statement": "Two orthogonal axes: Axis A (Semantic Relationship), Axis B (Verification Property)",
+      "status": "defined"
+    },
+    {
+      "id": "D4",
+      "name": "Proof Obligation",
+      "statement": "O = (id, property, assumptions, source_csr, discharged_by, verdict)",
+      "status": "defined"
+    },
+    {
+      "id": "D5",
+      "name": "Proof Dependency Graph (PDG)",
+      "statement": "PDG = (Obligations ∪ Evidence ∪ Assumptions, Edges)",
+      "status": "defined"
+    },
+    {
+      "id": "D6",
+      "name": "Counterexample",
+      "statement": "C = (id, obligation, witness, refutation_evidence, type, provenance)",
+      "status": "defined"
+    }
+  ],
+  "propositions": [
+    {"id": "P1", "name": "Non-Substitutability", "status": "design_requirement"},
+    {"id": "P2", "name": "Orthogonality of Translation Axes", "status": "design_requirement"},
+    {"id": "P3", "name": "ODG Acyclicity", "status": "design_requirement"},
+    {"id": "P4", "name": "PDG Extends ODG", "status": "design_requirement"},
+    {"id": "P5", "name": "Invalidation via derives_from", "status": "design_requirement"},
+    {"id": "P6", "name": "Bounded Remediation", "status": "design_requirement"},
+    {"id": "P7", "name": "Specification Changes Require Human Review", "status": "design_requirement"},
+    {"id": "P8", "name": "Separation of Duties", "status": "design_requirement"},
+    {"id": "P9", "name": "Human Discharge Only When Automation Cannot", "status": "design_requirement"},
+    {"id": "P10", "name": "Trust Is Explicit", "status": "design_requirement"}
+  ],
+  "architectural_pillars": [
+    "Three-Layer Functional Specification",
+    "Canonical Specification Representation (CSR)",
+    "Proof Dependency Graph (PDG)",
+    "Counterexample-Guided Remediation",
+    "Protocol-Based Integration (with AetherFlow)",
+    "Human Review Protocol"
+  ],
+  "open_questions": {
+    "total": 50,
+    "range": "Q1-Q50",
+    "status": "open"
+  },
+  "design_decisions": {
+    "total": 52,
+    "range": "D1-D52"
+  },
+  "threats": {
+    "total": 15,
+    "range": "T1-T15"
+  },
+  "links": {
+    "github": "https://github.com/gitdeeper15/aetherproof",
+    "gitlab": "https://gitlab.com/gitdeeper15/aetherproof",
+    "codeberg": "https://codeberg.org/gitdeeper15/aetherproof",
+    "bitbucket": "https://bitbucket.org/gitdeeper15/aetherproof",
+    "pypi": "https://pypi.org/project/aetherproof/ (not yet published)",
+    "zenodo": "https://doi.org/10.5281/zenodo.24013124",
+    "website": "https://aetherproof-arch.netlify.app",
+    "osf": "https://doi.org/10.17605/OSF.IO/SRM2P",
+    "related_aethergit": "https://doi.org/10.5281/zenodo.23966896",
+    "related_aetherflow": "https://doi.org/10.5281/zenodo.23979129"
+  },
+  "license": {
+    "code": "MIT",
+    "manuscript_figures_documentation": "CC-BY-4.0"
+  }
+}
