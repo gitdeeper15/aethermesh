@@ -22,13 +22,13 @@
 [![Zenodo](https://img.shields.io/badge/Zenodo-Published-blue)](https://doi.org/10.5281/zenodo.24054524)
 [![Record ID](https://img.shields.io/badge/Record%20ID-AETHERGOVERN--01-orange)](https://doi.org/10.5281/zenodo.24054524)
 [![OSF](https://img.shields.io/badge/OSF-Pending-lightgrey)](https://osf.io/)
-[![Website](https://img.shields.io/badge/Website-aethergovern--web.netlify.app-00C7B7?logo=netlify&logoColor=white)](https://aethergovern-web.netlify.app)
-[![Aether Family](https://img.shields.io/badge/Aether%20Family-5%20dimensions%20(4%20confirmed%20%2B%201%20hypothesis)-orange)](https://aethergovern-web.netlify.app)
+[![Website](https://img.shields.io/badge/Website-aethergovern.netlify.app-00C7B7?logo=netlify&logoColor=white)](https://aethergovern.netlify.app)
+[![Aether Family](https://img.shields.io/badge/Aether%20Family-5%20dimensions%20(4%20confirmed%20%2B%201%20hypothesis)-orange)](https://aethergovern.netlify.app)
 
 <br>
 
 **[📄 Paper](https://doi.org/10.5281/zenodo.24054524)** ·
-**[🌐 Website](https://aethergovern-web.netlify.app)** ·
+**[🌐 Website](https://aethergovern.netlify.app)** ·
 **[📦 Releases](https://github.com/gitdeeper15/aethergovern/releases)** ·
 **[📖 Citation](#-citation)**
 
@@ -419,7 +419,7 @@ AetherGovern adopts a **falsification-first methodology**:
 | **Bitbucket** | [bitbucket.org/gitdeeper15/aethergovern](https://bitbucket.org/gitdeeper15/aethergovern) | Mirror repository | ✅ Active |
 | **Zenodo** | [10.5281/zenodo.24054524](https://doi.org/10.5281/zenodo.24054524) | Citable DOI, paper archive | ✅ Published |
 | **OSF** | Pending registration | Registration | ⏳ Pending |
-| **Website** | [aethergovern-web.netlify.app](https://aethergovern-web.netlify.app) | Live documentation | ⏳ (planned) |
+| **Website** | [aethergovern.netlify.app](https://aethergovern.netlify.app) | Live documentation | ⏳ (planned) |
 | **ORCID** | [0009-0003-8903-0029](https://orcid.org/0009-0003-8903-0029) | Author identity | ✅ Active |
 
 > [!NOTE]
@@ -584,7 +584,7 @@ Research Type Architectural Hypothesis Under Investigation (v0.1.0)
 🦊 GitLab gitlab.com/gitdeeper15/aethergovern
 🟦 Codeberg codeberg.org/gitdeeper15/aethergovern
 🪣 Bitbucket bitbucket.org/gitdeeper15/aethergovern
-🌐 Official Site aethergovern-web.netlify.app (planned)
+🌐 Official Site aethergovern.netlify.app (planned)
 
 ---
 
