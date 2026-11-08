@@ -110,7 +110,7 @@ AetherMesh answers three questions together:
 | Causal claims | None (formal analysis only) |
 
 <p align="center">
-  <img src="docs/figures/Fig1_Tripartite_Architecture.png"
+  <img src="https://raw.githubusercontent.com/gitdeeper15/aethermesh/main/docs/figures/Fig1_Tripartite_Architecture.png"
        alt="AetherMesh — Tripartite Architecture"
        width="100%">
 </p>
@@ -230,7 +230,7 @@ where `⊔` is binary, commutative, associative, and idempotent.
 | Inflationary (derived) | `s ⊑ s ⊔ t` | State never moves down the lattice; no rollback |
 
 <p align="center">
-  <img src="docs/figures/Fig2_CRDT_Join_Semilattice.png"
+  <img src="https://raw.githubusercontent.com/gitdeeper15/aethermesh/main/docs/figures/Fig2_CRDT_Join_Semilattice.png"
        alt="AetherMesh — CRDT Join-Semilattice (Hasse diagram)"
        width="100%">
 </p>
@@ -277,7 +277,7 @@ Before a peer accepts a remote CRDT delta `Δᵢ`, local verification daemons ev
 *Values are the output of a formula under stated assumptions, not simulation results.*
 
 <p align="center">
-  <img src="docs/figures/Fig3_Gossip_Propagation.png"
+  <img src="https://raw.githubusercontent.com/gitdeeper15/aethermesh/main/docs/figures/Fig3_Gossip_Propagation.png"
        alt="AetherMesh — Gossip Propagation"
        width="100%">
 </p>
@@ -305,7 +305,7 @@ Before a peer accepts a remote CRDT delta `Δᵢ`, local verification daemons ev
 | **3** | Lightweight Byzantine Fault Tolerance | Validity **filtering**, deliberately **not** a consensus protocol: (1) signature, (2) DAG integrity, (3) schema, (4) semantic compatibility matrix. Missing parents are **deferred**, not rejected. Predicates must satisfy the **admission determinism requirement** (A6). |
 
 <p align="center">
-  <img src="docs/figures/Fig8_Node_Anatomy.png"
+  <img src="https://raw.githubusercontent.com/gitdeeper15/aethermesh/main/docs/figures/Fig8_Node_Anatomy.png"
        alt="AetherMesh — Anatomy of a Node"
        width="100%">
 </p>
@@ -315,7 +315,7 @@ Before a peer accepts a remote CRDT delta `Δᵢ`, local verification daemons ev
 </p>
 
 <p align="center">
-  <img src="docs/figures/Fig7_Gossip_Exchange.png"
+  <img src="https://raw.githubusercontent.com/gitdeeper15/aethermesh/main/docs/figures/Fig7_Gossip_Exchange.png"
        alt="AetherMesh — Anti-Entropy Gossip Exchange"
        width="100%">
 </p>
@@ -325,7 +325,7 @@ Before a peer accepts a remote CRDT delta `Δᵢ`, local verification daemons ev
 </p>
 
 <p align="center">
-  <img src="docs/figures/Fig9_Partition_Healing.png"
+  <img src="https://raw.githubusercontent.com/gitdeeper15/aethermesh/main/docs/figures/Fig9_Partition_Healing.png"
        alt="AetherMesh — Partition, Divergence, and Healing"
        width="100%">
 </p>
@@ -337,7 +337,7 @@ Before a peer accepts a remote CRDT delta `Δᵢ`, local verification daemons ev
 ### 🔐 Byzantine Admission Pipeline
 
 <p align="center">
-  <img src="docs/figures/Fig4_BFT_Validation.png"
+  <img src="https://raw.githubusercontent.com/gitdeeper15/aethermesh/main/docs/figures/Fig4_BFT_Validation.png"
        alt="AetherMesh — Byzantine Admission Pipeline"
        width="100%">
 </p>
@@ -412,7 +412,7 @@ The source material described scaling as “linear with log(n)”. Fitting the f
 *Eq. (4): `T ≈ (ln n)/(k·r)` with illustrative `k = 5`, `r = 10 Hz`. Computed by us from the formulas; not simulation output.*
 
 <p align="center">
-  <img src="docs/figures/Fig6_Scaling_Analysis.png"
+  <img src="https://raw.githubusercontent.com/gitdeeper15/aethermesh/main/docs/figures/Fig6_Scaling_Analysis.png"
        alt="AetherMesh — Scaling Analysis"
        width="100%">
 </p>
@@ -477,7 +477,7 @@ flowchart BT
 | Decentralization | **AetherMesh** *(this work)* | How do agents synchronize state without central coordination? | [10.5281/zenodo.24038038](https://doi.org/10.5281/zenodo.24038038) | — |
 
 <p align="center">
-  <img src="docs/figures/Fig5_Aether_Family.png"
+  <img src="https://raw.githubusercontent.com/gitdeeper15/aethermesh/main/docs/figures/Fig5_Aether_Family.png"
        alt="AetherMesh — The Aether Family, Four Layers"
        width="100%">
 </p>
