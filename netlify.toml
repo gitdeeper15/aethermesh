@@ -1,16 +1,19 @@
-# AetherProof — Netlify Configuration
-# https://aetherproof-arch.netlify.app
+# AetherMesh — Netlify Configuration
+# https://aethermesh-web.netlify.app
 
 [build]
-  publish = "PUBLICATION/Netlify/public"
+  publish = "PUBLICATION"
   command = "echo 'Static site — no build required'"
 
-[build.environment]
-  PYTHON_VERSION = "3.11"
+[[redirects]]
+  from = "/"
+  to = "/AetherMesh_Research_Paper.pdf"
+  status = 302
+  force = true
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/paper"
+  to = "/AetherMesh_Research_Paper.pdf"
   status = 200
 
 [[headers]]
@@ -19,3 +22,10 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+  for = "/*.pdf"
+  [headers.values]
+    Content-Disposition = "inline"
+    Cache-Control = "public, max-age=86400"

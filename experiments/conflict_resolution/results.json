@@ -1,0 +1,25 @@
+{
+  "experiment": "conflict_resolution",
+  "description": "Conflict resolution overhead (deadlocks, CPU, memory)",
+  "source": "Section 5.3 of AetherMesh v1.0.0",
+  "runs": [
+    {
+      "n_nodes": 10,
+      "conflicts_flagged": 0,
+      "deadlocks": 0,
+      "throughput_overhead_pct": 0.0
+    },
+    {
+      "n_nodes": 50,
+      "conflicts_flagged": 0,
+      "deadlocks": 0,
+      "throughput_overhead_pct": 0.0
+    },
+    {
+      "n_nodes": 100,
+      "conflicts_flagged": 0,
+      "deadlocks": 0,
+      "throughput_overhead_pct": 0.0
+    }
+  ]
+}

@@ -1,8 +1,0 @@
-{
-  "experiment": "differential_proving",
-  "full_reproving_time": 120.0,
-  "differential_time": 48.0,
-  "speedup": 2.5,
-  "reuse_rate": 0.65,
-  "note": "Simulated results"
-}

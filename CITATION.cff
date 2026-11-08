@@ -1,41 +1,46 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
 type: software
-title: "AetherProof: Autonomous Formal Verification and Invariant Synthesis for Multi-Agent Software Ecosystems"
-version: 1.0.0
-doi: 10.5281/zenodo.24013124
+title: "AetherMesh v2.0.0: Reference Implementation of Decentralized Peer-to-Peer Agent Synchronization and State CRDTs"
+version: 2.0.0
+doi: 10.5281/zenodo.24038038
 identifiers:
   - type: doi
-    value: 10.17605/OSF.IO/SRM2P
+    value: 10.17605/OSF.IO/9PE5V
     description: OSF Registration
-date-released: 2026-11-07
+date-released: 2026-11-08
 license: MIT
 license-url: https://opensource.org/licenses/MIT
-repository-code: https://github.com/gitdeeper15/aetherproof
-url: https://doi.org/10.5281/zenodo.24013124
+url: https://doi.org/10.5281/zenodo.24038038
+repository-code: https://github.com/gitdeeper15/aethermesh
 abstract: >
-  AetherProof is a formal architecture for specification-driven proof
-  construction, incremental differential proving, and counterexample-guided
-  remediation in multi-agent software ecosystems. It is the verification
-  layer of the Aether family, above AetherGit (storage) and AetherFlow
-  (integration). The paper specifies three functional layers (TLA+,
-  Why3/Lean, SMT-LIB/Z3), a Canonical Specification Representation (CSR)
-  with three distinct identities, a Proof Dependency Graph (PDG), and a
-  counterexample-guided remediation protocol. No implementation is built
-  and no empirical evaluation is performed.
+  AetherMesh v2.0.0 is the reference implementation of the AetherMesh
+  architecture specified in v1.0.0: a fully decentralized peer-to-peer
+  synchronization framework for autonomous agent networks that modify
+  shared codebases and metadata DAGs. It implements a tripartite
+  architecture: (1) specialized conflict-free replicated data types
+  (CRDTs) for code structures and semantic metadata; (2) epidemic
+  gossip protocols for low-latency, resilient propagation; and (3) a
+  lightweight Byzantine fault tolerance (BFT) admission layer that
+  verifies remote deltas before they enter the local join-semilattice.
+  The reference implementation includes 15 Python modules, 107 tests
+  (79% coverage), and 3 reproducible experiments. The v1.0.0 paper
+  remains the authoritative record; v2.0.0 adds a reference
+  implementation alongside it. No real-world deployment has been
+  evaluated.
 keywords:
-  - formal methods
-  - formal verification
-  - specification languages
-  - TLA+
-  - Why3
-  - Lean
-  - SMT
-  - proof obligations
-  - incremental proving
-  - counterexample-guided remediation
+  - AetherMesh
+  - peer-to-peer
+  - CRDT
+  - conflict-free replicated data types
+  - Byzantine fault tolerance
+  - gossip protocol
+  - multi-agent systems
+  - decentralized synchronization
+  - eventual consistency
   - agentic software engineering
-  - AetherProof
+  - formal methods
+  - distributed systems
 authors:
   - family-names: Baladi
     given-names: Samir
@@ -56,4 +61,11 @@ references:
       - family-names: Baladi
         given-names: Samir
     doi: 10.5281/zenodo.23979129
+    date-released: 2026
+  - type: generic
+    title: "AetherProof: Autonomous Formal Verification and Invariant Synthesis for Multi-Agent Software Ecosystems"
+    authors:
+      - family-names: Baladi
+        given-names: Samir
+    doi: 10.5281/zenodo.24013124
     date-released: 2026

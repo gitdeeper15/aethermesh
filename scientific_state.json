@@ -1,73 +1,125 @@
 {
-  "project": "AetherProof",
-  "version": "1.0.0",
-  "date": "2026-11-07",
-  "status": "formalization_stage",
-  "record_id": "AETHERPROOF-01",
+  "project": "AetherMesh",
+  "version": "2.0.0",
+  "paper_version": "1.0.0",
+  "date": "2026-11-08",
+  "status": "reference_implementation_with_reproducible_experiments",
+  "record_id": "AETHERMESH-02",
   "formal_definitions": {
-    "csr_record": {
-      "statement": "csr = (csr_id, artifact_hash, semantic_id, layer, language, content, semantic_role, requirements_refs, assumptions, relations, version, provenance)",
-      "status": "defined"
+    "convergent_state_transition": {
+      "statement": "R_a(t+1) = R_a(t) \u2294 \u2a06_{m \u2208 M_a} m",
+      "status": "defined",
+      "implemented": "src/aethermesh/models.py:Replica.join"
     },
-    "semantic_relation": {
-      "statement": "Seven typed relations: refines, instantiates, approximates, implies, contradicts, depends_on, supersedes",
-      "status": "defined"
+    "crdt_state_space": {
+      "statement": "(S, \u2294, \u22a5) bounded join-semilattice",
+      "status": "defined",
+      "implemented": "src/aethermesh/crdt/semilattice.py:DeltaSetLattice"
     },
-    "translation_classification": {
-      "statement": "Two orthogonal axes: Axis A (Semantic Relationship), Axis B (Verification Property)",
-      "status": "defined"
+    "gossip_infection_probability": {
+      "statement": "P_uninfected(t) \u2248 e^(\u2212\u03b2\u00b7t)",
+      "status": "defined",
+      "implemented": "src/aethermesh/gossip/protocol.py:GossipProtocol"
     },
-    "proof_obligation": {
-      "statement": "O = (id, property, assumptions, source_csr, discharged_by, verdict)",
-      "status": "defined"
-    },
-    "pdg": {
-      "statement": "PDG = (Obligations ∪ Evidence ∪ Assumptions, Edges)",
-      "status": "defined"
-    },
-    "counterexample": {
-      "statement": "C = (id, obligation, witness, refutation_evidence, type, provenance)",
-      "status": "defined"
+    "byzantine_admission_rule": {
+      "statement": "Local verification daemons evaluate provenance, structure, semantics",
+      "status": "defined",
+      "implemented": "src/aethermesh/admission/pipeline.py:AdmissionPipeline"
     }
   },
-  "propositions": {
-    "p1_non_substitutability": "design_requirement",
-    "p2_orthogonality": "design_requirement",
-    "p3_odg_acyclicity": "design_requirement",
-    "p4_pdg_extends_odg": "design_requirement",
-    "p5_invalidation_via_derives_from": "design_requirement",
-    "p6_bounded_remediation": "design_requirement",
-    "p7_spec_changes_require_review": "design_requirement",
-    "p8_separation_of_duties": "design_requirement",
-    "p9_human_discharge_only_when_automation_cannot": "design_requirement",
-    "p10_trust_is_explicit": "design_requirement"
+  "assumptions": {
+    "A1": "Fair-lossy channels",
+    "A2": "Fair peer selection",
+    "A3": "Finite delta universe",
+    "A4": "Correct replicas",
+    "A5": "Cryptographic soundness",
+    "A6": "Admission determinism"
+  },
+  "theorems": {
+    "T1_eventual_consistency": {
+      "statement": "Given fair-lossy channels and continuing gossip, all non-faulty nodes converge.",
+      "status": "stated_with_proof_sketch",
+      "machine_checked": false,
+      "assumptions": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6"
+      ]
+    },
+    "T2_exponential_dampening": {
+      "statement": "P_uninfected(t) \u2248 e^(\u2212\u03b2t) under constant-hazard model.",
+      "status": "stated_with_proof_sketch",
+      "machine_checked": false,
+      "assumptions": [
+        "A2"
+      ]
+    },
+    "T3_byzantine_bound": {
+      "statement": "If f < n/3, local predicates block all predicate-detectable invalid deltas.",
+      "status": "stated_with_proof_sketch",
+      "machine_checked": false,
+      "assumptions": [
+        "A5",
+        "A6"
+      ]
+    }
   },
   "architectural_pillars": [
-    "Three-Layer Functional Specification",
-    "Canonical Specification Representation (CSR)",
-    "Proof Dependency Graph (PDG)",
-    "Counterexample-Guided Remediation",
-    "Protocol-Based Integration (with AetherFlow)",
-    "Human Review Protocol"
+    "CRDTs for Code and Metadata DAGs",
+    "Epidemic Gossip Protocols",
+    "Lightweight Byzantine Fault Tolerance"
   ],
-  "open_questions": {
-    "total": 50,
-    "status": "open",
-    "note": "Q2 (semantic consistency) is the most consequential open question."
+  "implementation": {
+    "status": "built",
+    "package_name": "aethermesh",
+    "version": "2.0.0",
+    "modules": 15,
+    "source_dir": "src/aethermesh/",
+    "cli_available": true,
+    "pypi_published": false
   },
-  "design_decisions": {
-    "total": 52
+  "test_suite": {
+    "framework": "pytest",
+    "test_files": 7,
+    "total_tests": 107,
+    "passed": 107,
+    "failed": 0,
+    "coverage_pct": 79
   },
-  "threats": {
-    "total": 15,
-    "note": "All threats are mitigated with residual risk, not eliminated."
+  "experiments": {
+    "count": 3,
+    "directory": "experiments/",
+    "convergence_latency": {
+      "path": "experiments/convergence_latency/",
+      "metric": "State convergence latency",
+      "paper_section": "5.2"
+    },
+    "conflict_resolution": {
+      "path": "experiments/conflict_resolution/",
+      "metric": "Conflict resolution overhead",
+      "paper_section": "5.3"
+    },
+    "fault_resilience": {
+      "path": "experiments/fault_resilience/",
+      "metric": "Fault resilience",
+      "paper_section": "5.4"
+    }
   },
-  "implementation": "not_built",
-  "empirical_work": "not_performed",
+  "open_questions": 50,
+  "design_decisions": 52,
+  "threats": 15,
+  "real_world_deployment": "not_evaluated",
+  "peer_reviewed": false,
   "causal_claims": "none",
-  "relation_to_aethergit": "related work — AetherGit provides storage layer",
-  "relation_to_aetherflow": "related work — AetherFlow provides integration layer",
-  "doi": "10.5281/zenodo.24013124",
-  "osf_doi": "10.17605/OSF.IO/SRM2P",
-  "doi_url": "https://doi.org/10.5281/zenodo.24013124"
+  "relation_to_aethergit": "storage layer \u2014 requires an append-only changeset log with parent pointers",
+  "relation_to_aetherflow": "integration layer \u2014 requires a message-based protocol",
+  "relation_to_aetherproof": "verification layer \u2014 nothing mandatory",
+  "doi": "10.5281/zenodo.24038038",
+  "doi_url": "https://doi.org/10.5281/zenodo.24038038",
+  "osf_doi": "10.17605/OSF.IO/9PE5V",
+  "osf_url": "https://doi.org/10.17605/OSF.IO/9PE5V",
+  "osf_project": "https://osf.io/n59ay"
 }

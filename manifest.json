@@ -1,17 +1,19 @@
 {
   "manifest_version": "1.0",
   "project": {
-    "name": "AetherProof",
-    "full_title": "AetherProof: Autonomous Formal Verification and Invariant Synthesis for Multi-Agent Software Ecosystems",
-    "subtitle": "A Formal Architecture for Specification-Driven Proof Construction and Counterexample-Guided Remediation",
-    "version": "1.0.0",
-    "type": "research_paper",
-    "status": "formalization_stage",
-    "release_date": "2026-11-07",
+    "name": "AetherMesh",
+    "full_title": "AetherMesh: Decentralized Peer-to-Peer Agent Synchronization and State CRDTs for Autonomous Multi-Agent Systems",
+    "subtitle": "A Formal Architecture for Epidemic Gossip Propagation and Lightweight Byzantine Fault Tolerance at Agent Scale",
+    "version": "2.0.0",
+    "type": "research_paper_with_reference_implementation",
+    "status": "reference_implementation_with_reproducible_experiments",
+    "release_date": "2026-11-08",
     "language": "en",
-    "doi": "10.5281/zenodo.24013124",
-    "doi_url": "https://doi.org/10.5281/zenodo.24013124",
-    "record_id": "AETHERPROOF-01"
+    "doi": "10.5281/zenodo.24038038",
+    "doi_url": "https://doi.org/10.5281/zenodo.24038038",
+    "record_id": "AETHERMESH-02",
+    "layer_in_aether_family": "decentralization (fourth layer)",
+    "paper_version": "1.0.0"
   },
   "author": {
     "name": "Samir Baladi",
@@ -23,65 +25,80 @@
   "formal_definitions": [
     {
       "id": "D1",
-      "name": "CSR Record",
-      "statement": "csr = (csr_id, artifact_hash, semantic_id, layer, language, content, semantic_role, requirements_refs, assumptions, relations, version, provenance)",
+      "name": "Convergent State Transition",
       "status": "defined"
     },
     {
       "id": "D2",
-      "name": "Semantic Relation",
-      "statement": "Seven typed relations: refines, instantiates, approximates, implies, contradicts, depends_on, supersedes",
+      "name": "CRDT State Space",
       "status": "defined"
     },
     {
       "id": "D3",
-      "name": "Translation Classification",
-      "statement": "Two orthogonal axes: Axis A (Semantic Relationship), Axis B (Verification Property)",
+      "name": "Gossip Infection Probability",
       "status": "defined"
     },
     {
       "id": "D4",
-      "name": "Proof Obligation",
-      "statement": "O = (id, property, assumptions, source_csr, discharged_by, verdict)",
-      "status": "defined"
-    },
-    {
-      "id": "D5",
-      "name": "Proof Dependency Graph (PDG)",
-      "statement": "PDG = (Obligations ∪ Evidence ∪ Assumptions, Edges)",
-      "status": "defined"
-    },
-    {
-      "id": "D6",
-      "name": "Counterexample",
-      "statement": "C = (id, obligation, witness, refutation_evidence, type, provenance)",
+      "name": "Byzantine Admission Rule",
       "status": "defined"
     }
   ],
-  "propositions": [
-    {"id": "P1", "name": "Non-Substitutability", "status": "design_requirement"},
-    {"id": "P2", "name": "Orthogonality of Translation Axes", "status": "design_requirement"},
-    {"id": "P3", "name": "ODG Acyclicity", "status": "design_requirement"},
-    {"id": "P4", "name": "PDG Extends ODG", "status": "design_requirement"},
-    {"id": "P5", "name": "Invalidation via derives_from", "status": "design_requirement"},
-    {"id": "P6", "name": "Bounded Remediation", "status": "design_requirement"},
-    {"id": "P7", "name": "Specification Changes Require Human Review", "status": "design_requirement"},
-    {"id": "P8", "name": "Separation of Duties", "status": "design_requirement"},
-    {"id": "P9", "name": "Human Discharge Only When Automation Cannot", "status": "design_requirement"},
-    {"id": "P10", "name": "Trust Is Explicit", "status": "design_requirement"}
+  "assumptions": {
+    "A1": "Fair-lossy channels",
+    "A2": "Fair peer selection",
+    "A3": "Finite delta universe",
+    "A4": "Correct replicas",
+    "A5": "Cryptographic soundness",
+    "A6": "Admission determinism"
+  },
+  "theorems": [
+    {
+      "id": "T1",
+      "name": "Eventual Consistency",
+      "status": "stated_with_proof_sketch",
+      "machine_checked": false
+    },
+    {
+      "id": "T2",
+      "name": "Exponential Dampening of Gossip Latency",
+      "status": "stated_with_proof_sketch",
+      "machine_checked": false
+    },
+    {
+      "id": "T3",
+      "name": "Byzantine Fault Tolerance Bound",
+      "status": "stated_with_proof_sketch",
+      "machine_checked": false
+    }
   ],
   "architectural_pillars": [
-    "Three-Layer Functional Specification",
-    "Canonical Specification Representation (CSR)",
-    "Proof Dependency Graph (PDG)",
-    "Counterexample-Guided Remediation",
-    "Protocol-Based Integration (with AetherFlow)",
-    "Human Review Protocol"
+    "Pillar 1 \u2014 CRDTs for Code and Metadata DAGs",
+    "Pillar 2 \u2014 Epidemic Gossip Protocols",
+    "Pillar 3 \u2014 Lightweight Byzantine Fault Tolerance"
   ],
+  "implementation": {
+    "status": "built",
+    "package_name": "aethermesh",
+    "package_version": "2.0.0",
+    "pypi_published": false,
+    "modules": 15,
+    "tests": 107,
+    "coverage_pct": 79,
+    "experiments": 3
+  },
+  "simulated_evaluation": {
+    "testbed": "Custom Python + NumPy discrete simulation",
+    "scale": "10\u2013500 nodes",
+    "network_model": "Simplified",
+    "byzantine_model": "Limited to malformed deltas",
+    "metrics": 3,
+    "results_available": true,
+    "results_path": "experiments/*/results.json"
+  },
   "open_questions": {
     "total": 50,
-    "range": "Q1-Q50",
-    "status": "open"
+    "range": "Q1-Q50"
   },
   "design_decisions": {
     "total": 52,
@@ -89,19 +106,34 @@
   },
   "threats": {
     "total": 15,
-    "range": "T1-T15"
+    "range": "T1-T15",
+    "classes": 6
   },
+  "real_world_deployment": false,
+  "peer_review": false,
   "links": {
-    "github": "https://github.com/gitdeeper15/aetherproof",
-    "gitlab": "https://gitlab.com/gitdeeper15/aetherproof",
-    "codeberg": "https://codeberg.org/gitdeeper15/aetherproof",
-    "bitbucket": "https://bitbucket.org/gitdeeper15/aetherproof",
-    "pypi": "https://pypi.org/project/aetherproof/ (not yet published)",
-    "zenodo": "https://doi.org/10.5281/zenodo.24013124",
-    "website": "https://aetherproof-arch.netlify.app",
-    "osf": "https://doi.org/10.17605/OSF.IO/SRM2P",
-    "related_aethergit": "https://doi.org/10.5281/zenodo.23966896",
-    "related_aetherflow": "https://doi.org/10.5281/zenodo.23979129"
+    "github": "https://github.com/gitdeeper15/aethermesh",
+    "gitlab": "https://gitlab.com/gitdeeper15/aethermesh",
+    "codeberg": "https://codeberg.org/gitdeeper15/aethermesh",
+    "bitbucket": "https://bitbucket.org/gitdeeper15/aethermesh",
+    "pypi": "https://pypi.org/project/aethermesh/",
+    "zenodo": "https://doi.org/10.5281/zenodo.24038038",
+    "website": "https://aethermesh-web.netlify.app",
+    "osf": "https://doi.org/10.17605/OSF.IO/9PE5V",
+    "osf_project": "https://osf.io/n59ay"
+  },
+  "artifacts": {
+    "manuscript": {
+      "path": "PUBLICATION/AetherMesh_Research_Paper.pdf",
+      "pages": 33,
+      "version": "1.0.0"
+    },
+    "figures_dir": "docs/figures/",
+    "docs_v1_dir": "docs/v1.0.0/",
+    "report_v2_path": "REPORTS/v2.0.0/report.md",
+    "source_dir": "src/aethermesh/",
+    "tests_dir": "tests/",
+    "experiments_dir": "experiments/"
   },
   "license": {
     "code": "MIT",

@@ -1,24 +1,43 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# AetherMesh v2.0.0 — PyPI package configuration
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# This is the reference implementation of the AetherMesh architecture
+# specified in v1.0.0. See README.md and the v2.0.0 report for details.
+#
+# The v1.0.0 paper is the authoritative record; this package is the
+# reference implementation alongside it.
+# ═══════════════════════════════════════════════════════════════════════════
+
 [build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "aetherproof-arch"
-version = "0.1.0a1"
-description = "AetherProof v2.0.0: Empirical implementation of the formal architecture"
+name = "aethermesh"
+version = "2.0.0"
+description = "AetherMesh v2.0.0: Reference implementation of the decentralized P2P agent synchronization architecture"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [{ name = "Samir Baladi", email = "gitdeeper@gmail.com" }]
 maintainers = [{ name = "Samir Baladi", email = "gitdeeper@gmail.com" }]
 keywords = [
-    "formal methods", "formal verification", "specification languages",
-    "TLA+", "Why3", "Lean", "SMT", "proof obligations",
-    "incremental proving", "counterexample-guided remediation",
-    "agentic software engineering", "AetherProof",
+    "peer-to-peer",
+    "crdt",
+    "conflict-free replicated data types",
+    "byzantine fault tolerance",
+    "gossip protocol",
+    "multi-agent systems",
+    "decentralized synchronization",
+    "eventual consistency",
+    "agentic software engineering",
+    "formal methods",
+    "distributed systems",
+    "AetherMesh",
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -26,42 +45,48 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Quality Assurance",
-    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering",
+    "Topic :: System :: Distributed Computing",
 ]
 dependencies = [
     "numpy>=1.24",
+    "cryptography>=41.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.0", "pytest-cov>=4.0",
-    "ruff>=0.1", "mypy>=1.0",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
 ]
 experiments = [
-    "scikit-learn>=1.3", "matplotlib>=3.7",
+    "matplotlib>=3.7",
 ]
 
 [project.urls]
-Homepage = "https://github.com/gitdeeper15/aetherproof"
-Documentation = "https://github.com/gitdeeper15/aetherproof#readme"
-Repository = "https://github.com/gitdeeper15/aetherproof"
-"Bug Tracker" = "https://github.com/gitdeeper15/aetherproof/issues"
-"Research Paper" = "https://doi.org/10.5281/zenodo.24013124"
-"OSF Registration" = "https://doi.org/10.17605/OSF.IO/SRM2P"
-"Official Site" = "https://aetherproof-arch.netlify.app"
+Homepage = "https://aethermesh-web.netlify.app"
+Repository = "https://github.com/gitdeeper15/aethermesh"
+"Bug Tracker" = "https://github.com/gitdeeper15/aethermesh/issues"
+"Research Paper" = "https://doi.org/10.5281/zenodo.24038038"
+Zenodo = "https://doi.org/10.5281/zenodo.24038038"
+ORCID = "https://orcid.org/0009-0003-8903-0029"
 "Related Work (AetherGit)" = "https://doi.org/10.5281/zenodo.23966896"
 "Related Work (AetherFlow)" = "https://doi.org/10.5281/zenodo.23979129"
+"Related Work (AetherProof)" = "https://doi.org/10.5281/zenodo.24013124"
 
 [project.scripts]
-aetherproof = "aetherproof.cli:main"
+aethermesh = "aethermesh.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+aethermesh = ["py.typed"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --cov=aetherproof"
+addopts = "-v --cov=aethermesh --cov-report=term-missing"
 
 [tool.ruff]
 line-length = 100
@@ -69,4 +94,3 @@ target-version = "py39"
 
 [tool.mypy]
 python_version = "3.9"
-strict = true

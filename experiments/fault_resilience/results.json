@@ -1,0 +1,31 @@
+{
+  "experiment": "fault_resilience",
+  "description": "Blocking of malformed deltas",
+  "source": "Section 5.4 of AetherMesh v1.0.0",
+  "runs": [
+    {
+      "n_malformed": 10,
+      "injected": 10,
+      "blocked": 10,
+      "block_rate": 1.0
+    },
+    {
+      "n_malformed": 50,
+      "injected": 50,
+      "blocked": 50,
+      "block_rate": 1.0
+    },
+    {
+      "n_malformed": 100,
+      "injected": 100,
+      "blocked": 100,
+      "block_rate": 1.0
+    },
+    {
+      "n_malformed": 500,
+      "injected": 500,
+      "blocked": 500,
+      "block_rate": 1.0
+    }
+  ]
+}

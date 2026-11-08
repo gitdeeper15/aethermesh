@@ -1,84 +1,75 @@
-Project: AetherProof
-Full Title: AetherProof: Autonomous Formal Verification and Invariant Synthesis for Multi-Agent Software Ecosystems
-Subtitle: A Formal Architecture for Specification-Driven Proof Construction and Counterexample-Guided Remediation
-Domain: Computer Science / Software Engineering
-Subdiscipline: Formal Methods, Specification Languages, Proof Obligations, Counterexample-Guided Remediation, Agentic Software Engineering
-DOI (Zenodo): 10.5281/zenodo.24013124
-DOI URL: https://doi.org/10.5281/zenodo.24013124
-DOI (OSF): 10.17605/OSF.IO/SRM2P
-OSF URL: https://doi.org/10.17605/OSF.IO/SRM2P
-Stage: FORMALIZATION
-Version: 1.0.0
-Date: 2026-11-07
-Record ID: AETHERPROOF-01
+Project: AetherMesh
+Full Title: AetherMesh: Decentralized Peer-to-Peer Agent Synchronization and State CRDTs for Autonomous Multi-Agent Systems
+Subtitle: A Formal Architecture for Epidemic Gossip Propagation and Lightweight Byzantine Fault Tolerance at Agent Scale
+Domain: Distributed Systems / Software Engineering / Formal Methods
+Subdiscipline: CRDTs, Epidemic Gossip, Byzantine Fault Tolerance, Decentralized Synchronization, Eventual Consistency, Agentic Software Engineering
+DOI (Zenodo): 10.5281/zenodo.24038038
+DOI URL: https://doi.org/10.5281/zenodo.24038038
+DOI (OSF): Pending
+Stage: REFERENCE IMPLEMENTATION (v2.0.0) + FORMAL ARCHITECTURE (v1.0.0)
+Version: 2.0.0
+Paper Version: 1.0.0
+Date: 2026-11-08
+Record ID: AETHERMESH-02
 
-Formal Definitions: 6
-  - Definition 1: CSR Record (three identities: record, artifact, semantic)
-  - Definition 2: Semantic Relation (seven typed relations)
-  - Definition 3: Translation Classification (two orthogonal axes)
-  - Definition 4: Proof Obligation
-  - Definition 5: Proof Dependency Graph (PDG)
-  - Definition 6: Counterexample
+Formal Definitions: 4
+  - Definition 1: Convergent State Transition
+  - Definition 2: CRDT State Space (bounded join-semilattice)
+  - Definition 3: Gossip Infection Probability
+  - Definition 4: Byzantine Admission Rule
 
-Propositions: 10 (all stated as design requirements; not formally proven)
-  - Proposition 1: Non-Substitutability
-  - Proposition 2: Orthogonality of Translation Axes
-  - Proposition 3: ODG Acyclicity
-  - Proposition 4: PDG Extends ODG
-  - Proposition 5: Invalidation via derives_from
-  - Proposition 6: Bounded Remediation
-  - Proposition 7: Specification Changes Require Human Review
-  - Proposition 8: Separation of Duties
-  - Proposition 9: Human Discharge Only When Automation Cannot
-  - Proposition 10: Trust Is Explicit
+Theorems: 3 (stated with proof sketches; not machine-checked)
+  - Theorem 1: Eventual Consistency (under A1–A6)
+  - Theorem 2: Exponential Dampening of Gossip Latency (under A2)
+  - Theorem 3: Byzantine Fault Tolerance Bound (under A5, A6)
 
-Architectural Pillars: 6
-  - Pillar 1: Three-Layer Functional Specification (TLA+, Why3/Lean, SMT-LIB)
-  - Pillar 2: Canonical Specification Representation (CSR)
-  - Pillar 3: Proof Dependency Graph (PDG)
-  - Pillar 4: Counterexample-Guided Remediation
-  - Pillar 5: Protocol-Based Integration (with AetherFlow)
-  - Pillar 6: Human Review Protocol
+Assumptions: 6 (A1–A6)
 
-Additional Design Elements:
-  - Per-Path TCB Manifests
-  - Two-Axis Translation Classification
-  - Assumption Tracking
-  - Verdict vs. Disposition Separation
-  - Trust Hierarchy
-  - Guardrails against Specification Gaming
+Architectural Pillars: 3
+  - Pillar 1: CRDTs for Code and Metadata DAGs
+  - Pillar 2: Epidemic Gossip Protocols
+  - Pillar 3: Lightweight Byzantine Fault Tolerance
 
-Key Structural Claims: 10 (P1-P10, design requirements)
+Implementation (v2.0.0):
+  Package: aethermesh
+  Version: 2.0.0
+  Modules: 15 (Python)
+  Lines: ~1,100
+  CLI: aethermesh info | verify | simulate
+  Tests: 107 (pytest), 79% coverage
+  Experiments: 3 (convergence, conflict, fault resilience)
+  PyPI: Not yet published
+  Install: pip install aethermesh (after publication)
 
-Open Questions: 50 (Q1-Q50)
-Design Decisions: 52 (D1-D52)
-Threats: 15 (T1-T15)
+Simulated Evaluation (v1.0.0):
+  Testbed: Custom Python + NumPy
+  Scale: 10–500 nodes
+  Metrics: 3
+  Results: simulation-only, not real-world
 
-Implementation: Not built
-Empirical Evaluation: Not performed
-PyPI Package: Not published (planned post-empirical)
+Open Questions: 50 (Q1–Q50)
+Design Decisions: 52 (D1–D52)
+Threats: 15 (T1–T15), 6 classes
+
+Real-World Deployment: Not evaluated
+Peer Review: Not reviewed
 Causal Claims: None (formal analysis only)
 
-References: 27
-Appendix A: Notation
-Appendix B: Open Questions Q1-Q50
-Appendix C: Design Decisions D1-D52
-Appendix D: Threats T1-T15
-
-Related Identifiers:
-  - AetherGit (storage layer, related work): 10.5281/zenodo.23966896
-  - AetherFlow (integration layer, related work): 10.5281/zenodo.23979129
-  - Scion position paper (prior work): 10.5281/zenodo.23934465
+Position in Aether Family (fourth layer):
+  - Layer 1 (storage): AetherGit — 10.5281/zenodo.23966896
+  - Layer 2 (integration): AetherFlow — 10.5281/zenodo.23979129
+  - Layer 3 (verification): AetherProof — 10.5281/zenodo.24013124
+  - Layer 4 (decentralization): AetherMesh — 10.5281/zenodo.24038038 (this work)
 
 Repositories:
-  - GitHub (primary): https://github.com/gitdeeper15/aetherproof
-  - GitLab (mirror): https://gitlab.com/gitdeeper15/aetherproof
-  - Codeberg (mirror): https://codeberg.org/gitdeeper15/aetherproof
-  - Bitbucket (mirror): https://bitbucket.org/gitdeeper15/aetherproof
-  - PyPI (planned): https://pypi.org/project/aetherproof/
-  - Zenodo: https://doi.org/10.5281/zenodo.24013124
-  - OSF: 10.17605/OSF.IO/SRM2P
-  - Website: https://aetherproof-arch.netlify.app
+  - GitHub (primary): https://github.com/gitdeeper15/aethermesh
+  - GitLab (mirror): https://gitlab.com/gitdeeper15/aethermesh
+  - Codeberg (mirror): https://codeberg.org/gitdeeper15/aethermesh
+  - Bitbucket (mirror): https://bitbucket.org/gitdeeper15/aethermesh
+  - PyPI: https://pypi.org/project/aethermesh/ (not yet published)
+  - Zenodo: https://doi.org/10.5281/zenodo.24038038
+  - OSF: Pending
+  - Website: https://aethermesh-web.netlify.app
 
 Author: Samir Baladi
 ORCID: 0009-0003-8903-0029

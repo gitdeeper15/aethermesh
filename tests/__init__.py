@@ -1,1 +1,1 @@
-"""AetherProof test suite."""
+"""AetherMesh — test suite."""

@@ -1,95 +1,230 @@
-"""Tests for core models."""
+"""
+Tests for aethermesh.models — Delta, Replica, Signature, enums.
+
+Covers:
+    - Delta.id determinism and content-addressing
+    - Delta immutability
+    - Replica.join (idempotent, commutative, associative)
+    - Replica.materialize (topological order)
+    - Signature serialization
+    - Verdict / DeltaKind / AdmissionStage enums
+"""
 
 import pytest
 
-from aetherproof.models import (
-    CSRecord,
-    Layer,
-    Obligation,
+from aethermesh.models import (
+    AdmissionStage,
+    AdmissionVerdict,
+    Delta,
+    DeltaKind,
+    PeerView,
+    Replica,
+    Signature,
     Verdict,
-    Counterexample,
-    CounterexampleType,
-    ObligationType,
+    deserialize_delta,
+    serialize_delta,
 )
 
 
-def test_csr_record_creation():
-    """Test CSR record creation with three identities."""
-    csr = CSRecord.create(
-        layer=Layer.L1,
-        language="TLA+",
-        content="Always (queue_length <= MAX)",
-        semantic_role="invariant",
-        assumptions=("A1: MAX > 0",),
-    )
+# =============================================================================
+# Delta
+# =============================================================================
 
-    assert csr.csr_id.startswith("csr-L1-")
-    assert len(csr.artifact_hash) == 16
-    assert len(csr.semantic_id) == 16
-    assert csr.layer == Layer.L1
-    assert csr.language == "TLA+"
+class TestDelta:
+    def test_delta_id_is_deterministic(self):
+        d1 = Delta(
+            body={"op": "edit"},
+            parents=frozenset(),
+            timestamp="2026-01-01T00:00:00+00:00",
+            origin="agent-1",
+            kind=DeltaKind.EDIT_BODY,
+        )
+        d2 = Delta(
+            body={"op": "edit"},
+            parents=frozenset(),
+            timestamp="2026-01-01T00:00:00+00:00",
+            origin="agent-1",
+            kind=DeltaKind.EDIT_BODY,
+        )
+        assert d1.id == d2.id
 
+    def test_delta_id_changes_with_body(self):
+        d1 = Delta.create(body={"op": "edit"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        d2 = Delta.create(body={"op": "other"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        assert d1.id != d2.id
 
-def test_csr_identities_distinct():
-    """Test that the three identities are distinct."""
-    csr = CSRecord.create(
-        layer=Layer.L2,
-        language="Why3",
-        content="pre: x > 0; post: result > x",
-        semantic_role="contract",
-    )
+    def test_delta_id_changes_with_parents(self):
+        d1 = Delta.create(body={"op": "edit"}, origin="a", kind=DeltaKind.EDIT_BODY, parents={"p1"})
+        d2 = Delta.create(body={"op": "edit"}, origin="a", kind=DeltaKind.EDIT_BODY, parents={"p2"})
+        assert d1.id != d2.id
 
-    assert csr.csr_id != csr.artifact_hash
-    assert csr.artifact_hash != csr.semantic_id
-    assert csr.csr_id != csr.semantic_id
+    def test_delta_id_ignores_signature(self):
+        sig = Signature(origin="a", key_id="k", value=b"\x00" * 64)
+        d_unsigned = Delta.create(body={"op": "edit"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        d_signed = d_unsigned.with_signature(sig)
+        assert d_unsigned.id == d_signed.id
 
+    def test_delta_is_frozen(self):
+        d = Delta.create(body={"op": "edit"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        with pytest.raises(Exception):
+            d.origin = "b"
 
-def test_obligation_creation():
-    """Test obligation creation."""
-    obl = Obligation.create(
-        property="Invariance(Always (queue_length <= MAX))",
-        assumptions=("A1",),
-        source_csr="csr-L1-abc123",
-    )
-
-    assert obl.id.startswith("O-")
-    assert obl.verdict == Verdict.UNKNOWN
-    assert obl.discharged_by is None
-
-
-def test_counterexample_creation():
-    """Test counterexample creation."""
-    cex = Counterexample.create(
-        obligation="O-abc123",
-        witness="queue_length = MAX + 1",
-        refutation_evidence="model-xyz",
-        type=CounterexampleType.CODE_DEFECT,
-    )
-
-    assert cex.id.startswith("C-")
-    assert cex.type == CounterexampleType.CODE_DEFECT
+    def test_delta_serialization_roundtrip(self):
+        d = Delta.create(body={"op": "edit"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        s = serialize_delta(d)
+        d2 = deserialize_delta(s)
+        assert d2.id == d.id
+        assert d2.origin == d.origin
+        assert d2.kind == d.kind
 
 
-def test_verdict_enum():
-    """Test verdict enum."""
-    assert Verdict.PROVEN.value == "proven"
-    assert Verdict.REFUTED.value == "refuted"
-    assert Verdict.UNKNOWN.value == "unknown"
+# =============================================================================
+# Replica
+# =============================================================================
+
+class TestReplica:
+    def test_join_single_delta(self):
+        r = Replica(origin="a")
+        d = Delta.create(body={"op": "edit"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        r.join(d)
+        assert len(r) == 1
+        assert d.id in r
+
+    def test_join_is_idempotent(self):
+        r = Replica(origin="a")
+        d = Delta.create(body={"op": "edit"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        r.join(d)
+        r.join(d)
+        r.join(d)
+        assert len(r) == 1
+
+    def test_merge_is_commutative(self):
+        r1 = Replica(origin="a")
+        r2 = Replica(origin="b")
+        d1 = Delta.create(body={"op": "a"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        d2 = Delta.create(body={"op": "b"}, origin="b", kind=DeltaKind.EDIT_BODY)
+        r1.join(d1)
+        r2.join(d2)
+
+        merged1 = Replica(origin="x")
+        merged1.join(d1).join(d2)
+
+        merged2 = Replica(origin="x")
+        merged2.join(d2).join(d1)
+
+        assert merged1.ids() == merged2.ids()
+
+    def test_has_parents(self):
+        r = Replica(origin="a")
+        parent = Delta.create(body={"op": "parent"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        r.join(parent)
+
+        child = Delta.create(
+            body={"op": "child"},
+            origin="a",
+            kind=DeltaKind.EDIT_BODY,
+            parents={parent.id},
+        )
+        assert r.has_parents(child) is True
+
+        orphan = Delta.create(
+            body={"op": "orphan"},
+            origin="a",
+            kind=DeltaKind.EDIT_BODY,
+            parents={"missing"},
+        )
+        assert r.has_parents(orphan) is False
+
+    def test_materialize_topological(self):
+        r = Replica(origin="a")
+        parent = Delta.create(body={"op": "p"}, origin="a", kind=DeltaKind.EDIT_BODY)
+        r.join(parent)
+        child = Delta.create(
+            body={"op": "c"},
+            origin="a",
+            kind=DeltaKind.EDIT_BODY,
+            parents={parent.id},
+        )
+        r.join(child)
+
+        ordered = r.materialize()
+        assert len(ordered) == 2
+        # Parent must come before child.
+        parent_idx = next(i for i, d in enumerate(ordered) if d.id == parent.id)
+        child_idx = next(i for i, d in enumerate(ordered) if d.id == child.id)
+        assert parent_idx < child_idx
 
 
-def test_obligation_type_enum():
-    """Test obligation type enum."""
-    assert ObligationType.INVARIANCE.value == "invariance"
-    assert ObligationType.PRE_POST.value == "pre_post"
-    assert ObligationType.SATISFIABILITY.value == "satisfiability"
-    assert ObligationType.CONSISTENCY.value == "consistency"
+# =============================================================================
+# Signature
+# =============================================================================
+
+class TestSignature:
+    def test_signature_serialization(self):
+        sig = Signature(origin="a", key_id="k", value=b"\x01\x02\x03")
+        d = sig.to_dict()
+        sig2 = Signature.from_dict(d)
+        assert sig2.origin == sig.origin
+        assert sig2.key_id == sig.key_id
+        assert sig2.value == sig.value
 
 
-def test_counterexample_type_enum():
-    """Test counterexample type enum."""
-    assert CounterexampleType.CODE_DEFECT.value == "code_defect"
-    assert CounterexampleType.SPECIFICATION_ERROR.value == "specification_error"
-    assert CounterexampleType.ASSUMPTION_VIOLATION.value == "assumption_violation"
-    assert CounterexampleType.MODEL_ERROR.value == "model_error"
-    assert CounterexampleType.FLAKY_REFUTATION.value == "flaky_refutation"
-    assert CounterexampleType.UNKNOWN.value == "unknown"
+# =============================================================================
+# Enums
+# =============================================================================
+
+class TestEnums:
+    def test_verdict_values(self):
+        assert Verdict.ACCEPT.value == "accept"
+        assert Verdict.REJECT.value == "reject"
+        assert Verdict.DEFER.value == "defer"
+        assert Verdict.QUARANTINE.value == "quarantine"
+
+    def test_delta_kinds(self):
+        assert DeltaKind.EDIT_BODY.value == "edit_body"
+        assert DeltaKind.RENAME_SYMBOL.value == "rename_symbol"
+        assert DeltaKind.DELETE_SYMBOL.value == "delete_symbol"
+        assert DeltaKind.CHANGE_SIGNATURE.value == "change_signature"
+        assert DeltaKind.EDIT_METADATA.value == "edit_metadata"
+
+    def test_admission_stages(self):
+        assert AdmissionStage.SIGNATURE.value == "signature"
+        assert AdmissionStage.DAG_INTEGRITY.value == "dag_integrity"
+        assert AdmissionStage.SCHEMA.value == "schema"
+        assert AdmissionStage.SEMANTICS.value == "semantics"
+
+
+# =============================================================================
+# AdmissionVerdict
+# =============================================================================
+
+class TestAdmissionVerdict:
+    def test_accepted_property(self):
+        v = AdmissionVerdict(delta_id="x", verdict=Verdict.ACCEPT)
+        assert v.accepted is True
+
+    def test_rejected_property(self):
+        v = AdmissionVerdict(delta_id="x", verdict=Verdict.REJECT)
+        assert v.accepted is False
+
+
+# =============================================================================
+# PeerView
+# =============================================================================
+
+class TestPeerView:
+    def test_add_and_sample(self):
+        pv = PeerView(capacity=10)
+        pv.add("p1")
+        pv.add("p2")
+        pv.add("p3")
+        assert len(pv) == 3
+        sample = pv.sample(2)
+        assert len(sample) == 2
+
+    def test_capacity_eviction(self):
+        pv = PeerView(capacity=2)
+        pv.add("p1")
+        pv.add("p2")
+        pv.add("p3")  # should evict one
+        assert len(pv) == 2

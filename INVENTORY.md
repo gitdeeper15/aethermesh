@@ -1,15 +1,32 @@
-# AetherProof — Complete Inventory
+# AetherMesh — Complete Inventory
 
-**Version:** 2.0.0 (manuscript revision) / 0.1.0a1 (PyPI package)
-**Release Date:** 2026-11-07
+**Version:** 2.0.0 (reference implementation) + 1.0.0 (formal architecture)
+**Release Date:** 2026-11-08
 **Author:** Samir Baladi
 **Email:** gitdeeper@gmail.com
 **ORCID:** [0009-0003-8903-0029](https://orcid.org/0009-0003-8903-0029)
 **License:** MIT (code) · CC-BY-4.0 (docs, manuscript, figures)
-**Status:** Empirical Implementation · Reference implementation · Preliminary results
-**Record ID:** AETHERPROOF-01
-**DOI (Zenodo):** [10.5281/zenodo.24013124](https://doi.org/10.5281/zenodo.24013124)
-**DOI (OSF):** [10.17605/OSF.IO/SRM2P](https://doi.org/10.17605/OSF.IO/SRM2P)
+**Status:** Reference Implementation + Reproducible Experiments (published)
+**Record ID:** AETHERMESH-02
+**DOI (Zenodo, v2.0.0):** [10.5281/zenodo.24038038](https://doi.org/10.5281/zenodo.24038038)
+**OSF Registration:** [10.17605/OSF.IO/9PE5V](https://doi.org/10.17605/OSF.IO/9PE5V)
+
+---
+
+## Research Status
+
+| Item | Status |
+|---|---|
+| Document type | Research article + reference implementation |
+| Paper (v1.0.0) | Complete (33 pages, PDF) |
+| Implementation (v2.0.0) | ✅ Built (`src/aethermesh/`, 15 modules) |
+| Tests | ✅ 107 passed, 79% coverage |
+| Experiments | ✅ 3/3 completed |
+| PyPI package | ✅ Published (`aethermesh 2.0.0`) |
+| Real-world deployment | None; no deployed system has been benchmarked |
+| Theorems 1–3 | Stated with proof sketches; not machine-checked; conditional on A1–A6 |
+| Byzantine evaluation | Limited to malformed deltas |
+| Review status | Not peer reviewed |
 
 ---
 
@@ -17,360 +34,218 @@
 
 | Platform | URL | Role | Status |
 |----------|-----|------|--------|
-| GitHub | https://github.com/gitdeeper15/aetherproof | Primary | ✅ Active |
-| GitLab | https://gitlab.com/gitdeeper15/aetherproof | Mirror | ✅ Active |
-| Codeberg | https://codeberg.org/gitdeeper15/aetherproof | Mirror | ✅ Active |
-| Bitbucket | https://bitbucket.org/gitdeeper15/aetherproof | Mirror | ✅ Active |
-| PyPI | https://pypi.org/project/aetherproof/ | Python package | ✅ **Published (0.1.0a1)** |
-| Zenodo | https://doi.org/10.5281/zenodo.24013124 | DOI (manuscript) | ✅ Published |
-| OSF | https://doi.org/10.17605/OSF.IO/SRM2P | Registration | ✅ Published |
-| Website | https://aetherproof-arch.netlify.app | Live documentation | ✅ Active |
+| GitHub | https://github.com/gitdeeper15/aethermesh | Primary | ✅ Active |
+| GitLab | https://gitlab.com/gitdeeper15/aethermesh | Mirror | ✅ Active |
+| Codeberg | https://codeberg.org/gitdeeper15/aethermesh | Mirror | ✅ Active |
+| Bitbucket | https://bitbucket.org/gitdeeper15/aethermesh | Mirror | ✅ Active |
+| **PyPI** | https://pypi.org/project/aethermesh/2.0.0/ | Python package (`aethermesh 2.0.0`) | ✅ **Published** |
+| **Zenodo** | https://doi.org/10.5281/zenodo.24038038 | DOI (v1.0.0 + v2.0.0) | ✅ **Published** |
+| **OSF** | https://doi.org/10.17605/OSF.IO/9PE5V | Registration | ✅ **Published** |
+| Website | https://aethermesh-web.netlify.app | Live documentation | ✅ Active |
 | ORCID | https://orcid.org/0009-0003-8903-0029 | Identity | ✅ Active |
 
-> **PyPI note:** Published as `aetherproof` version `0.1.0a1` (alpha). Install with
-> `pip install aetherproof==0.1.0a1`. The alpha status signals that the API may
-> change before `1.0.0`. This is a reference implementation, not a production system.
+---
+
+## Manuscript Artifact (v1.0.0)
+
+| File | Pages | MD5 | SHA256 |
+|---|---|---|---|
+| `PUBLICATION/AetherMesh_Research_Paper.pdf` | 33 | `b1d7b2da6dda636871f9d5b3cddd855c` | `bf58c4c3ebb8eb1f3430a7f8fd9d15299065b699f96b61902306f95859e2b7a2` |
 
 ---
 
 ## Root Files
 
-| File | Purpose |
-|------|---------|
-| `.gitignore` | Git ignore rules |
-| `AUTHORS.md` | Contributors (AetherProof) |
-| `CHANGELOG.md` | Version history (v2.0.0) |
-| `CITATION.cff` | Citation metadata (v2.0.0) |
-| `CONTRIBUTING.md` | Contribution guidelines (AetherProof) |
-| `INVENTORY.md` | Complete inventory (this file) |
-| `LICENSE` | MIT + CC-BY-4.0 |
-| `PROJECT_SUMMARY.txt` | One-page summary (AetherProof v2.0.0) |
-| `README.md` | Main documentation (v2.0.0) |
-| `VERSION` | 2.0.0 |
-| `manifest.json` | Project manifest (v2.0.0) |
-| `scientific_state.json` | Scientific state record (v2.0.0) |
-| `requirements.txt` | Python deps |
-| `pyproject.toml` | PEP 621 build config (v0.1.0a1) |
-| `upload_aetherproof.py` | PyPI uploader script |
-| `netlify.toml` | Netlify configuration (for future site) |
-| `OSF_REGISTRATION.md` | OSF registration document (published) |
+| File | Purpose | Status |
+|------|---------|:-:|
+| `.gitignore` | Git ignore rules | ✅ |
+| `AUTHORS.md` | Contributors | ✅ |
+| `CHANGELOG.md` | Version history (v1.0.0 + v2.0.0) | ✅ |
+| `CITATION.cff` | Citation metadata (v2.0.0 + OSF DOI) | ✅ |
+| `CONTRIBUTING.md` | Contribution guidelines | ✅ |
+| `INVENTORY.md` | This file | ✅ |
+| `LICENSE` | MIT + CC-BY-4.0 | ✅ |
+| `OSF_REGISTRATION.md` | OSF registration record (DOI: 10.17605/OSF.IO/9PE5V) | ✅ |
+| `PROJECT_SUMMARY.txt` | One-page summary (v2.0.0) | ✅ |
+| `README.md` | Main documentation (v2.0.0) | ✅ |
+| `VERSION` | `2.0.0` | ✅ |
+| `manifest.json` | Project manifest (v2.0.0) | ✅ |
+| `scientific_state.json` | Scientific state record (v2.0.0) | ✅ |
+| `netlify.toml` | Netlify configuration | ✅ |
+| `pyproject.toml` | PEP 621 build config (v2.0.0) | ✅ |
+| `requirements.txt` | Python dependencies (v2.0.0) | ✅ |
+| `upload_aethermesh.py` | PyPI uploader | ✅ |
 
 ---
 
 ## Directories
 
-| Directory | Purpose |
-|-----------|---------|
-| `src/aetherproof/` | Reference implementation (v2.0.0) |
-| `tests/` | Test suite (40 tests, 79% coverage) |
-| `experiments/` | 5 experiment protocols + results |
-| `docs/` | Formal documents (9 files) + figures |
-| `docs/figures/` | Conceptual diagrams (5) |
-| `PUBLICATION/` | Manuscript (PDF) |
-| `REPORTS/v2.0.0/` | v2.0.0 evaluation report |
-| `DATA/` | Future data (empty) |
-| `ANALYSIS/` | Future analysis (empty) |
-| `EXTERNAL_REVIEW/` | Future review records (empty) |
-| `VALIDATION/` | Future validation (empty) |
+| Directory | Contents | Status |
+|-----------|----------|:-:|
+| `PUBLICATION/` | `AetherMesh_Research_Paper.pdf` (33 pages) | ✅ |
+| `docs/` | Documentation | ✅ |
+| `docs/figures/` | 5 figures (Fig1–Fig5) | ✅ |
+| `docs/v1.0.0/` | 8 markdown files from v1.0.0 paper | ✅ |
+| `src/aethermesh/` | Reference implementation (15 modules) | ✅ |
+| `tests/` | Test suite (7 files, 107 tests) | ✅ |
+| `experiments/` | 3 reproducible experiments | ✅ |
+| `REPORTS/v2.0.0/` | Evaluation report | ✅ |
+| `DATA/` | (empty) | — |
+| `ANALYSIS/` | (empty) | — |
+| `EXTERNAL_REVIEW/` | (empty) | — |
+| `VALIDATION/` | (empty) | — |
 
 ---
 
-## Source Code Structure (v2.0.0)
+## Source Code (`src/aethermesh/`)
 
-| Module | Purpose |
-|--------|---------|
-| `models.py` | CSRecord, Obligation, Counterexample, Verdict, Layer |
-| `csr/record.py` | CSR Record (Definition 1) |
-| `csr/relations.py` | Semantic Relations (Definition 2, 7 types) |
-| `obligations/generator.py` | Obligation Generator (Section 4.2) |
-| `obligations/odg.py` | ODG (Section 4.3) |
-| `proof/pdg.py` | PDG (Definition 5) |
-| `proof/invalidation.py` | Invalidation Rules (Section 5.3) |
-| `proof/engine.py` | Differential Proof Engine (Section 5) |
-| `remediation/diagnosis.py` | Diagnosis Protocol (Section 6.3) |
-| `remediation/guardrails.py` | Guardrails (Section 6.5) |
-| `remediation/cycle.py` | Remediation Cycle (Section 6.2) |
-| `protocol/messages.py` | M1-M10 (Section 7.2) |
-| `review/roles.py` | 5 Roles + Authority Matrix (Section 8.1) |
-| `cli.py` | Command-line interface |
+| Module | File | Purpose |
+|---|---|---|
+| `__init__.py` | 1 | Package definition |
+| `__version__.py` | 1 | Version info |
+| `models.py` | 1 | Delta, Replica, Signature, Verdict, DeltaKind, PeerView |
+| `crdt/semilattice.py` | 1 | Join-semilattice |
+| `crdt/delta_state.py` | 1 | Delta-state CRDT |
+| `gossip/protocol.py` | 1 | Anti-entropy exchange (5 steps) |
+| `gossip/peer_sampling.py` | 1 | Randomized peer selection |
+| `bft/provenance.py` | 1 | Ed25519 signatures |
+| `bft/invariants.py` | 1 | Structural invariants |
+| `bft/semantic_matrix.py` | 1 | Compatibility matrix |
+| `admission/pipeline.py` | 1 | Four-check pipeline |
+| `simulation/network.py` | 1 | Fair-lossy network model |
+| `simulation/node.py` | 1 | Simulated agent |
+| `simulation/testbed.py` | 1 | Full testbed |
+| `cli.py` | 1 | CLI |
 
----
-
-## Test Suite (v2.0.0)
-
-| Test File | Tests |
-|-----------|-------|
-| `test_models.py` | 7 |
-| `test_csr.py` | 5 |
-| `test_obligations.py` | 9 |
-| `test_proof.py` | 5 |
-| `test_remediation.py` | 6 |
-| `test_protocol.py` | 3 |
-| `test_review.py` | 5 |
-| **Total** | **40 tests, 79% coverage** |
+**Total:** 15 modules, ~1,100 lines.
 
 ---
 
-## Experiments (v2.0.0)
+## Test Suite (`tests/`)
 
-| # | Experiment | Result | Status |
-|---|------------|--------|--------|
-| 1 | Specification Synthesis | F1 = 0.884 | ✅ |
-| 2 | Proof Obligation Generation | 247 obligations (89 CSR) | ✅ |
-| 3 | Differential Proving | 2.5× speedup | ✅ |
-| 4 | Counterexample Diagnosis | 94% accuracy | ✅ |
-| 5 | Guardrail Effectiveness | 100% block rate | ✅ |
-
-> **Status note:** Experiments use simulated data. No real-world deployment evaluated.
-
----
-
-## Documentation (9 files)
-
-| # | File | Version | Status |
-|---|------|---------|--------|
-| 01 | `docs/01_specification_language.md` | 1.0.1-draft | ✅ Draft |
-| 02 | `docs/02_proof_obligations.md` | 1.0.0-draft | ✅ Draft |
-| 03 | `docs/03_incremental_proof_engine.md` | 1.0.0-draft | ✅ Draft |
-| 04 | `docs/04_counterexample_remediation.md` | 1.0.0-draft | ✅ Draft |
-| 05 | `docs/05_integration_protocol.md` | 1.0.0-draft | ✅ Draft |
-| 06 | `docs/06_human_review_protocol.md` | 1.0.0-draft | ✅ Draft |
-| 07 | `docs/07_threats_and_limitations.md` | 1.0.0-draft | ✅ Draft |
-| 08 | `docs/08_research_status_statement.md` | 1.0.0-final | ✅ Final |
-| — | `docs/system_architecture.md` | 1.0.0-draft | ✅ Draft |
+| File | Tests | Coverage |
+|---|:-:|:-:|
+| `test_models.py` | 19 | 93% |
+| `test_crdt.py` | 15 | 84% |
+| `test_gossip.py` | 15 | 97% |
+| `test_bft.py` | 21 | 96% |
+| `test_admission.py` | 19 | 92% |
+| `test_simulation.py` | 18 | 94% |
+| **Total** | **107** | **79%** |
 
 ---
 
-## Formal Definitions (6)
+## Experiments (`experiments/`)
 
-| # | Definition | Statement | Status |
-|---|------------|-----------|--------|
-| 1 | CSR Record | `csr = (csr_id, artifact_hash, semantic_id, layer, language, content, semantic_role, requirements_refs, assumptions, relations, version, provenance)` | ✅ Defined |
-| 2 | Semantic Relation | Seven typed relations: refines, instantiates, approximates, implies, contradicts, depends_on, supersedes | ✅ Defined |
-| 3 | Translation Classification | Two orthogonal axes: Axis A (Semantic Relationship), Axis B (Verification Property) | ✅ Defined |
-| 4 | Proof Obligation | `O = (id, property, assumptions, source_csr, discharged_by, verdict)` | ✅ Defined |
-| 5 | Proof Dependency Graph (PDG) | `PDG = (Obligations ∪ Evidence ∪ Assumptions, Edges)` | ✅ Defined |
-| 6 | Counterexample | `C = (id, obligation, witness, refutation_evidence, type, provenance)` | ✅ Defined |
+| # | Directory | Metric | Results |
+|:-:|---|---|:-:|
+| 1 | `convergence_latency/` | State convergence latency | ✅ `results.json` |
+| 2 | `conflict_resolution/` | Conflict resolution overhead | ✅ `results.json` |
+| 3 | `fault_resilience/` | Fault resilience | ✅ `results.json` |
 
 ---
 
-## Propositions (10)
+## Figures
 
-| # | Proposition | Status |
-|---|-------------|--------|
-| P1 | Non-Substitutability | ✅ Stated (design requirement) |
-| P2 | Orthogonality of Translation Axes | ✅ Stated (design requirement) |
-| P3 | ODG Acyclicity | ✅ Stated (design requirement) |
-| P4 | PDG Extends ODG | ✅ Stated (design requirement) |
-| P5 | Invalidation via derives_from | ✅ Stated (design requirement) |
-| P6 | Bounded Remediation | ✅ Stated (design requirement) |
-| P7 | Specification Changes Require Human Review | ✅ Stated (design requirement) |
-| P8 | Separation of Duties | ✅ Stated (design requirement) |
-| P9 | Human Discharge Only When Automation Cannot | ✅ Stated (design requirement) |
-| P10 | Trust Is Explicit | ✅ Stated (design requirement) |
-
-> **Note:** Propositions P1–P10 are **design requirements**, not formally proven theorems.
+| File | Figure | Description |
+|---|:-:|---|
+| `docs/figures/Fig1_Tripartite_Architecture.png` | Fig 1 | Tripartite architecture |
+| `docs/figures/Fig2_CRDT_Join_Semilattice.png` | Fig 4 | CRDT join-semilattice |
+| `docs/figures/Fig3_Gossip_Propagation.png` | Fig 8 | (a) Dampening, (b) latency |
+| `docs/figures/Fig4_BFT_Validation.png` | Fig 7 | Byzantine admission pipeline |
+| `docs/figures/Fig5_Aether_Family.png` | Fig 2 | Aether family (4 layers) |
 
 ---
 
-## Architectural Pillars (6)
+## Companion Works
 
-| # | Pillar | Status |
-|---|--------|--------|
-| 1 | Three-Layer Functional Specification (TLA+, Why3/Lean, SMT-LIB) | ✅ Specified |
-| 2 | Canonical Specification Representation (CSR) | ✅ Specified |
-| 3 | Proof Dependency Graph (PDG) | ✅ Specified |
-| 4 | Counterexample-Guided Remediation | ✅ Specified |
-| 5 | Protocol-Based Integration (with AetherFlow) | ✅ Specified |
-| 6 | Human Review Protocol | ✅ Specified |
+AetherMesh is the **fourth layer** (decentralization) of the Aether family:
 
----
-
-## Open Questions (50)
-
-| Range | Topic | Document |
-|-------|-------|----------|
-| Q1–Q7 | Specification language | 01 |
-| Q8–Q12 | Proof obligations | 02 |
-| Q13–Q18 | Differential proving | 03 |
-| Q19–Q24 | Counterexample remediation | 04 |
-| Q25–Q30 | System architecture | System Architecture |
-| Q31–Q36 | Integration protocol | 05 |
-| Q37–Q42 | Human review | 06 |
-| Q43–Q50 | Threats and limitations | 07 |
-
-> **Q2** (semantic consistency) is the most consequential open question.
+| Layer | System | DOI |
+|---|---|---|
+| Storage | AetherGit | [10.5281/zenodo.23966896](https://doi.org/10.5281/zenodo.23966896) |
+| Integration | AetherFlow | [10.5281/zenodo.23979129](https://doi.org/10.5281/zenodo.23979129) |
+| Verification | AetherProof | [10.5281/zenodo.24013124](https://doi.org/10.5281/zenodo.24013124) |
+| **Decentralization** | **AetherMesh** (this work) | [10.5281/zenodo.24038038](https://doi.org/10.5281/zenodo.24038038) |
 
 ---
 
-## Design Decisions (52)
+## Publication & Registration
 
-52 design decisions (D1–D52) documented across the eight documents.
-
----
-
-## Threats (15)
-
-| ID | Threat | Category | Severity | Residual Risk |
-|----|--------|----------|----------|---------------|
-| T1 | Unsound proof artifact | Soundness | High | Low |
-| T2 | Incomplete TCB manifest | Trust | High | Medium |
-| T3 | Specification does not reflect intent | Specification | High | Medium |
-| T4 | Silent assumption change | Trust | High | Low |
-| T5 | Guardrail bypass | Process | High | Low |
-| T6 | Toolchain compromise | Toolchain | High | Medium |
-| T7 | Reviewer conflict of interest | Human | Medium | Low |
-| T8 | Incomplete completeness proof | Completeness | Medium | Medium |
-| T9 | Semantic inconsistency between layers | Trust | Medium | Medium |
-| T10 | Counterexample flakiness | Soundness | Medium | Low |
-| T11 | Model over-approximation | Completeness | Medium | Medium |
-| T12 | Hypothesis-testing bias | Human | Medium | Medium |
-| T13 | Denial of service on proof engine | Process | Low | Low |
-| T14 | Audit-log tampering | Process | High | Low |
-| T15 | LLM-generated specification error | Specification | High | Medium |
-
----
-
-## Figures (5)
-
-| # | Figure | File | Size |
-|---|--------|------|------|
-| 1 | Three-Layer Architecture | `docs/figures/Fig1_Three_Layer_Architecture.png` | 349 KB |
-| 2 | CSR Record Structure | `docs/figures/Fig2_CSR_Record_Structure.png` | 211 KB |
-| 3 | Semantic Relations Graph | `docs/figures/Fig3_Semantic_Relations_Graph.png` | 275 KB |
-| 4 | Two-Axis Classification | `docs/figures/Fig4_Two_Axis_Classification.png` | 317 KB |
-| 5 | TCB Manifest | `docs/figures/Fig5_TCB_Manifest.png` | 363 KB |
-
----
-
-## Publication
-
-| File | Description | Size |
-|------|-------------|------|
-| `PUBLICATION/AetherProof_Research_Paper.pdf` | Full manuscript (46 pages) | 1.3 MB |
-
----
-
-## Reports
-
-| File | Description | Size |
-|------|-------------|------|
-| `REPORTS/v2.0.0/report.md` | v2.0.0 evaluation report | 94 lines |
-
----
-
-## References (27)
-
-27 references (see Section "References" of the manuscript, pages 44–45).
-
-Key related identifiers:
-- **Zenodo DOI (this manuscript):** [10.5281/zenodo.24013124](https://doi.org/10.5281/zenodo.24013124)
-- **OSF Registration:** [10.17605/OSF.IO/SRM2P](https://doi.org/10.17605/OSF.IO/SRM2P)
-- **PyPI Package:** [pypi.org/project/aetherproof](https://pypi.org/project/aetherproof/)
-- **AetherGit (storage layer, related work):** [10.5281/zenodo.23966896](https://doi.org/10.5281/zenodo.23966896)
-- **AetherFlow (integration layer, related work):** [10.5281/zenodo.23979129](https://doi.org/10.5281/zenodo.23979129)
-- **Scion position paper (prior work):** [10.5281/zenodo.23934465](https://doi.org/10.5281/zenodo.23934465)
-
----
-
-## Dependencies
-
-### Python (runtime — v2.0.0)
-
-- `numpy >= 1.24.0`
-
-### Python (dev)
-
-- `pytest >= 7.0`
-- `pytest-cov >= 4.0`
-- `ruff >= 0.1`
-- `mypy >= 1.0`
-
-### Python (experiments — optional)
-
-- `scikit-learn >= 1.3`
-- `matplotlib >= 3.7`
-
-### External APIs
-
-- None (reference implementation; no API calls).
-
----
-
-## Completion Summary
-
-```
-
-Project:              AetherProof — Autonomous Formal Verification and
-Invariant Synthesis for Multi-Agent Software Ecosystems
-Version:              2.0.0 (manuscript) / 0.1.0a1 (PyPI package)
-Status:               Empirical Implementation · Reference implementation
-Formal Definitions:   6
-Propositions:         10 (design requirements; not formally proven)
-Architectural Pillars: 6
-Figures:              5
-References:           27
-Open Questions:       50 (Q1–Q50)
-Design Decisions:     52 (D1–D52)
-Threats:              15 (T1–T15)
-Documentation:        9 files (docs/)
-Source files:         22 (src/aetherproof/)
-Tests:                40 passed, 79% coverage
-Experiments:          5/5 completed
-Manuscript:           Complete (46 pages, PDF)
-PyPI package:         ✅ Published (aetherproof 0.1.0a1)
-Real-world deployment: ❌ Not evaluated
-Causal Claims:        None (formal analysis only)
-License:              MIT (code) + CC-BY-4.0 (manuscript, figures, docs)
-DOI (Zenodo):         10.5281/zenodo.24013124
-DOI (OSF):            10.17605/OSF.IO/SRM2P
-Website:              https://aetherproof-arch.netlify.app
-
-```
+| Platform | Identifier | Status |
+|---|---|---|
+| **Zenodo (DOI)** | [10.5281/zenodo.24038038](https://doi.org/10.5281/zenodo.24038038) | ✅ Published (v1.0.0 + v2.0.0) |
+| **OSF Registration** | [10.17605/OSF.IO/9PE5V](https://doi.org/10.17605/OSF.IO/9PE5V) | ✅ Published |
+| **PyPI package** | [aethermesh 2.0.0](https://pypi.org/project/aethermesh/2.0.0/) | ✅ Published |
+| **GitHub release** | [v2.0.0](https://github.com/gitdeeper15/aethermesh/releases/tag/v2.0.0) | ✅ (tag) |
+| **Website** | [aethermesh-web.netlify.app](https://aethermesh-web.netlify.app) | ✅ Active |
 
 ---
 
 ## Citation
 
-### Primary Manuscript (AetherProof v1.0.0)
+### Software (v2.0.0)
 
 ```bibtex
-@techreport{baladi2026aetherproof,
+@software{baladi2026aethermesh_v2,
   author       = {Baladi, Samir},
-  title        = {AetherProof: Autonomous Formal Verification and Invariant
-                  Synthesis for Multi-Agent Software Ecosystems},
+  title        = {{AetherMesh} v2.0.0: Reference Implementation of Decentralized Peer-to-Peer Agent Synchronization and State CRDTs},
+  year         = {2026},
+  month        = {November},
+  publisher    = {PyPI},
+  version      = {2.0.0},
+  doi          = {10.5281/zenodo.24038038},
+  url          = {https://pypi.org/project/aethermesh/},
+  note         = {Reference implementation. Available via pip install aethermesh==2.0.0.}
+}
+```
+
+Paper (v1.0.0)
+
+```bibtex
+@techreport{baladi2026aethermesh,
+  author       = {Baladi, Samir},
+  title        = {AetherMesh: Decentralized Peer-to-Peer Agent Synchronization and State CRDTs for Autonomous Multi-Agent Systems},
   institution  = {Ronin Institute / Rite of Renaissance},
   type         = {Research Paper},
   year         = {2026},
   month        = {November},
   version      = {1.0.0},
-  doi          = {10.5281/zenodo.24013124},
-  url          = {https://doi.org/10.5281/zenodo.24013124},
-  note         = {Formal Architecture Proposal --- Formalization Stage.
-                  Six formal definitions, six architectural pillars,
-                  ten propositions with proofs. No empirical results.}
+  doi          = {10.5281/zenodo.24038038},
+  url          = {https://doi.org/10.5281/zenodo.24038038},
+  note         = {Formal Architecture Proposal with Simulated Evaluation --- No Real-World Deployment Benchmarked.}
 }
 ```
 
-Software Archive (PyPI + Zenodo)
+OSF Registration
 
 ```bibtex
-@software{baladi2026aetherproof_v2,
+@misc{baladi2026aethermesh_osf,
   author       = {Baladi, Samir},
-  title        = {{AetherProof} v2.0.0: Empirical Implementation of Autonomous
-                  Formal Verification and Invariant Synthesis},
+  title        = {{AetherMesh: Decentralized Peer-to-Peer Agent Synchronization and State CRDTs for Autonomous Multi-Agent Systems}},
   year         = {2026},
-  month        = {November},
-  publisher    = {PyPI},
-  version      = {0.1.0a1},
-  doi          = {10.5281/zenodo.24013124},
-  url          = {https://pypi.org/project/aetherproof/},
-  note         = {Reference implementation.
-                  Available via pip install aetherproof==0.1.0a1.}
+  month        = nov,
+  day          = {8},
+  publisher    = {OSF},
+  doi          = {10.17605/OSF.IO/9PE5V},
+  url          = {https://doi.org/10.17605/OSF.IO/9PE5V},
+  note         = {OSF Preregistration. Associated project: https://osf.io/n59ay}
 }
 ```
 
 ---
 
-Generated: 2026-11-07
-Inventory Version: 2.0.0
+Contact
+
+· Email: gitdeeper@gmail.com
+· ORCID: 0009-0003-8903-0029
+· Zenodo DOI: 10.5281/zenodo.24038038
+· OSF DOI: 10.17605/OSF.IO/9PE5V
+· PyPI: pypi.org/project/aethermesh
+· Website: aethermesh-web.netlify.app
+· GitHub: gitdeeper15/aethermesh
+
+---
+
+Last Updated: 2026-11-08
+Current Version: 2.0.0

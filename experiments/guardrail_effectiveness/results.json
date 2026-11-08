@@ -1,8 +1,0 @@
-{
-  "experiment": "guardrail_effectiveness",
-  "n_patches": 200,
-  "n_attacks": 156,
-  "n_blocked": 156,
-  "block_rate": 1.0,
-  "note": "Simulated results"
-}

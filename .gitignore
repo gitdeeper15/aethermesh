@@ -1,4 +1,14 @@
-# ─── Python ───
+# ═══════════════════════════════════════════════════════════════════════════
+# AetherMesh — .gitignore (v2.0.0)
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# Reference repository: research paper (v1.0.0) + implementation (v2.0.0)
+# This file covers Python packaging, testing, coverage, PyPI builds, and
+# editor/OS artifacts.
+#
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ─── Python ───────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
@@ -19,54 +29,102 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# ─── Testing ───
+# ─── Virtual environments ─────────────────────────────────────────────────
+.venv/
+venv/
+ENV/
+env/
+.python-version
+
+# ─── Testing ──────────────────────────────────────────────────────────────
 .pytest_cache/
 .coverage
 .coverage.*
 htmlcov/
 .tox/
 .nox/
-
-# ─── Virtual Environments ───
-.venv/
-venv/
-ENV/
-env/
-
-# ─── IDE / Editor ───
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# ─── OS ───
-.DS_Store
-Thumbs.db
-
-# ─── AetherProof-specific ───
-# Build artifacts
-PUBLICATION/Netlify/public/_site/
-
-# Backup files
-*.bak
-*.bak2
-*.bak3
-
-# Environment
-.env
-.env.local
-
-# Logs
-*.log
-
-# ─── Data (if needed) ───
-# DATA/raw/*.json
-# EXPERIMENTS/results/*.json
-
-# ─── Coverage artifacts ───
-.coverage
 coverage.xml
 *.cover
 .hypothesis/
+.cache/
+nosetests.xml
+test-results/
+
+# ─── Type checking / linting caches ───────────────────────────────────────
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.pyre/
+
+# ─── PyPI build artifacts ─────────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.whl
+*.tar.gz
+
+# ─── AetherMesh-specific ──────────────────────────────────────────────────
+# Backups from prior versions (reference only, not to be committed)
+INVENTORY.aetherproof.md.bak
+INVENTORY.md.bak
+README_v1.0.0.md.bak
+AetherMesh.backup.*
+AetherMesh.bak.*
+
+# Generic backup files
+*.bak
+*.bak2
+*.bak3
+*.orig
+*.rej
+*~
+
+# ─── Netlify ──────────────────────────────────────────────────────────────
+.netlify/
+PUBLICATION/Netlify/public/
+PUBLICATION/Netlify/public/_site/
+
+# ─── Environment ──────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ─── Logs ─────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── Temporary files ──────────────────────────────────────────────────────
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# ─── IDE / Editor ─────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# ─── OS ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Data / experiments (keep in repo, but ignore large generated files) ──
+# Uncomment if experiment results become large:
+# experiments/*/results_large.json
+# experiments/*/traces/
+
+# ─── Keep empty directories in git ────────────────────────────────────────
+# (uncomment if you want empty dirs tracked)
+# !REPORTS/.gitkeep
+# !DATA/.gitkeep
+# !DATA/raw/.gitkeep
+# !ANALYSIS/.gitkeep
+# !EXTERNAL_REVIEW/.gitkeep
+# !VALIDATION/.gitkeep

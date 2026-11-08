@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherMesh — Decentralized Peer-to-Peer Agent Synchronization and State CRDTs</title>
+    <style>
+        :root {
+            --paper: #f0f4f0;
+            --paper-alt: #e4ebe4;
+            --ink: #0d2818;
+            --ink-soft: #3a5a4a;
+            --line: #c8d8c8;
+            --accent: #1a5c3a;
+            --accent-light: #2d8a5a;
+            --accent-soft: #d4e8d4;
+            --code-bg: #dce8dc;
+            --serif: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+            --mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --maxw: 820px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--serif);
+            font-size: 18px;
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .navbar {
+            border-bottom: 1px solid var(--line);
+            background: var(--paper);
+        }
+        .nav-container {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+        .logo {
+            font-family: var(--serif);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 1.75rem;
+            list-style: none;
+        }
+        .nav-links a {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--ink-soft);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .nav-links a:hover { color: var(--ink); }
+        .nav-links a.active {
+            color: var(--ink);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 2px;
+        }
+
+        main {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        .hero {
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 2.5rem;
+        }
+        .hero .badge {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--ink-soft);
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: 2.6rem;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+        }
+        .hero .subtitle {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--ink-soft);
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            color: var(--ink-soft);
+            font-size: 1rem;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+        section h3 {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--line);
+        }
+        section p {
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            padding: 1.25rem 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .stat { text-align: left; }
+        .stat .num {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+        .stat .label {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--ink-soft);
+            margin-top: 0.3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--serif);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        th, td {
+            padding: 0.55rem 0.4rem;
+            text-align: left;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+        th {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+        }
+
+        pre {
+            background: var(--code-bg);
+            padding: 1rem 1.15rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            line-height: 1.65;
+            border-left: 3px solid var(--accent);
+        }
+        code { font-family: var(--mono); }
+        p code, li code, td code {
+            background: var(--code-bg);
+            padding: 0.08rem 0.35rem;
+            font-size: 0.88em;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        a:hover { color: var(--accent-light); }
+
+        .resource-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .resource-list li {
+            padding: 0.9rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .resource-list li:last-child { border-bottom: none; }
+        .resource-list .resource-name {
+            display: block;
+            font-family: var(--serif);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            margin-bottom: 0.15rem;
+        }
+        .resource-list .resource-name:hover { color: var(--accent-light); }
+        .resource-list .resource-desc {
+            display: block;
+            font-family: var(--serif);
+            font-size: 0.9rem;
+            color: var(--ink-soft);
+            margin-bottom: 0.25rem;
+        }
+        .resource-list .resource-url {
+            display: block;
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .resource-list .resource-url:hover {
+            color: var(--accent-light);
+            text-decoration: underline;
+        }
+
+        ul { padding-left: 1.4rem; margin-bottom: 1rem; }
+        li { margin: 0.25rem 0; }
+
+        .note {
+            border-left: 3px solid var(--accent);
+            padding: 0.75rem 1rem;
+            background: var(--accent-soft);
+            font-size: 0.95rem;
+            color: var(--ink-soft);
+            margin: 1.25rem 0;
+        }
+
+        .footer {
+            border-top: 1px solid var(--line);
+            background: #0d2818;
+            color: #e6f5ea;
+            padding: 2.5rem 1.5rem 1rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+        .footer-container {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-brand h3 {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: none;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .footer-brand p {
+            font-family: var(--serif);
+            font-size: 0.9rem;
+            color: #a8d4b8;
+            line-height: 1.6;
+        }
+        .footer-section h3 {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #a8d4b8;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-section li {
+            margin: 0.3rem 0;
+        }
+        .footer-section a {
+            font-family: var(--serif);
+            font-size: 0.9rem;
+            color: #e6f5ea;
+            text-decoration: none;
+        }
+        .footer-section a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding-top: 1rem;
+            border-top: 1px solid #1a5c3a;
+            text-align: left;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: #7a9d8a;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .footer-bottom a {
+            color: #a8d4b8;
+            text-decoration: none;
+        }
+        .footer-bottom a:hover {
+            color: #ffffff;
+        }
+
+        @media (max-width: 680px) {
+            body { font-size: 16px; }
+            .nav-links { display: none; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 2rem; }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Aether<span>Mesh</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="https://pypi.org/project/aethermesh/">PyPI</a></li>
+                <li><a href="https://github.com/gitdeeper15/aethermesh">GitHub</a></li>
+                <li><a href="https://doi.org/10.5281/zenodo.24053492">Paper</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <span class="badge">Distributed Systems · Formal Methods · Reference Implementation</span>
+            <h1>AetherMesh</h1>
+            <p class="subtitle">Decentralized Peer-to-Peer Agent Synchronization and State CRDTs for Autonomous Multi-Agent Systems</p>
+            <p>A formal architecture for epidemic gossip propagation and lightweight Byzantine fault tolerance at agent scale. Now with a reference implementation (v2.0.0).</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="num">4</div>
+                <div class="label">Formal Definitions</div>
+            </div>
+            <div class="stat">
+                <div class="num">3</div>
+                <div class="label">Theorems</div>
+            </div>
+            <div class="stat">
+                <div class="num">3</div>
+                <div class="label">Pillars</div>
+            </div>
+            <div class="stat">
+                <div class="num">3</div>
+                <div class="label">Experiments</div>
+            </div>
+        </div>
+
+        <section>
+            <h3>Project</h3>
+            <table>
+                <tr><th>Field</th><th>Value</th></tr>
+                <tr><td>Full title</td><td>AetherMesh: Decentralized Peer-to-Peer Agent Synchronization and State CRDTs for Autonomous Multi-Agent Systems</td></tr>
+                <tr><td>Version</td><td>2.0.0 (Reference Implementation) / 1.0.0 (Formal Architecture)</td></tr>
+                <tr><td>Stage</td><td>Reference Implementation · Reproducible Experiments</td></tr>
+                <tr><td>License</td><td>MIT (code) · CC-BY-4.0 (docs, manuscript)</td></tr>
+                <tr><td>Domain</td><td>Distributed Systems / Software Engineering / Formal Methods</td></tr>
+                <tr><td>DOI (v2.0.0)</td><td><a href="https://doi.org/10.5281/zenodo.24053492">10.5281/zenodo.24053492</a></td></tr>
+                <tr><td>Concept DOI</td><td><a href="https://doi.org/10.5281/zenodo.24038037">10.5281/zenodo.24038037</a></td></tr>
+                <tr><td>OSF</td><td><a href="https://doi.org/10.17605/OSF.IO/9PE5V">10.17605/OSF.IO/9PE5V</a></td></tr>
+                <tr><td>PyPI</td><td><a href="https://pypi.org/project/aethermesh/">aethermesh</a></td></tr>
+                <tr><td>Record ID</td><td>AETHERMESH-02</td></tr>
+            </table>
+        </section>
+
+        <section>
+            <h3>Central Question</h3>
+            <p><em>How can autonomous agents synchronize shared code and metadata without central coordination — combining concurrent changes, disseminating them, and deciding which received changes to trust — and under which explicit assumptions may the combined guarantees hold?</em></p>
+        </section>
+
+        <section>
+            <h3>Formal Definitions</h3>
+            <table>
+                <tr><th>Definition</th><th>Statement</th><th>Status</th></tr>
+                <tr><td>1 — Convergent State Transition</td><td><code>R_a(t+1) = R_a(t) ⊔ ⨆_{m ∈ M_a} m</code></td><td>Defined</td></tr>
+                <tr><td>2 — CRDT State Space</td><td><code>(S, ⊔, ⊥)</code> bounded join-semilattice; <code>s_reconciled = s_i ⊔ s_j</code></td><td>Defined</td></tr>
+                <tr><td>3 — Gossip Infection Probability</td><td><code>P_uninfected(t) ≈ e^(−β·t)</code></td><td>Defined</td></tr>
+                <tr><td>4 — Byzantine Admission Rule</td><td>Local verification of provenance, structure, and semantics before admission</td><td>Defined</td></tr>
+            </table>
+
+            <p align="center">
+                <img src="assets/Fig1_Tripartite_Architecture.png"
+                     alt="Figure 1 — Tripartite Architecture"
+                     width="100%">
+            </p>
+            <p align="center">
+                <em>Figure 1 — The tripartite architecture of AetherMesh: CRDTs, gossip, and lightweight BFT sit above the peer-to-peer agent network.</em>
+            </p>
+        </section>
+
+        <section>
+            <h3>Theorems</h3>
+            <table>
+                <tr><th>#</th><th>Theorem</th><th>Status</th></tr>
+                <tr><td>T1</td><td>Eventual Consistency (under A1–A6)</td><td>Proof sketch</td></tr>
+                <tr><td>T2</td><td>Exponential Dampening of Gossip Latency (under A2)</td><td>Proof sketch</td></tr>
+                <tr><td>T3</td><td>Byzantine Fault Tolerance Bound (under A5, A6)</td><td>Proof sketch</td></tr>
+            </table>
+            <div class="note">All three theorems are stated with proof sketches; none is machine-checked. They hold only under assumptions A1–A6.</div>
+        </section>
+
+        <section>
+            <h3>Architectural Pillars</h3>
+            <table>
+                <tr><th>Pillar</th><th>Status</th></tr>
+                <tr><td>1 — CRDTs for Code and Metadata DAGs</td><td>Implemented</td></tr>
+                <tr><td>2 — Epidemic Gossip Protocols</td><td>Implemented</td></tr>
+                <tr><td>3 — Lightweight Byzantine Fault Tolerance</td><td>Implemented</td></tr>
+            </table>
+
+            <p align="center">
+                <img src="assets/Fig2_CRDT_Join_Semilattice.png"
+                     alt="Figure 4 — CRDT Join-Semilattice"
+                     width="100%">
+            </p>
+            <p align="center">
+                <em>Figure 4 — A seven-element bounded join-semilattice as a Hasse diagram. The join laws were verified on this example by exhaustive enumeration.</em>
+            </p>
+
+            <p align="center">
+                <img src="assets/Fig4_BFT_Validation.png"
+                     alt="Figure 7 — Byzantine Admission Pipeline"
+                     width="100%">
+            </p>
+            <p align="center">
+                <em>Figure 7 — A remote delta passes through signature, DAG-integrity, schema, and semantic-compatibility checks before joining the local semilattice.</em>
+            </p>
+        </section>
+
+        <section>
+            <h3>Empirical Results (v2.0.0)</h3>
+            <table>
+                <tr><th>#</th><th>Experiment</th><th>Result</th></tr>
+                <tr><td>1</td><td>Convergence Latency</td><td>Converged at 1–2 rounds (10–500 nodes)</td></tr>
+                <tr><td>2</td><td>Conflict Resolution</td><td>0 deadlocks, 0 conflicts flagged</td></tr>
+                <tr><td>3</td><td>Fault Resilience</td><td>100% block rate (10–500 malformed)</td></tr>
+            </table>
+            <div class="note">Experiments use simulated data. No real-world deployment has been evaluated. The v1.0.0 paper remains the authoritative architectural record.</div>
+        </section>
+
+        <section>
+            <h3>Installation</h3>
+            <pre><code>pip install aethermesh==2.0.0</code></pre>
+            <p>Requires Python 3.9+. Runtime dependencies: numpy &gt;= 1.24, cryptography &gt;= 41.0.</p>
+        </section>
+
+        <section>
+            <h3>Repositories and Archives</h3>
+            <ul class="resource-list">
+                <li>
+                    <a href="https://github.com/gitdeeper15/aethermesh" class="resource-name">GitHub</a>
+                    <span class="resource-desc">Primary. Source code, issues, and pull requests.</span>
+                    <a href="https://github.com/gitdeeper15/aethermesh" class="resource-url">github.com/gitdeeper15/aethermesh</a>
+                </li>
+                <li>
+                    <a href="https://pypi.org/project/aethermesh/" class="resource-name">PyPI</a>
+                    <span class="resource-desc">Python package (2.0.0).</span>
+                    <a href="https://pypi.org/project/aethermesh/" class="resource-url">pypi.org/project/aethermesh</a>
+                </li>
+                <li>
+                    <a href="https://doi.org/10.5281/zenodo.24053492" class="resource-name">Zenodo (v2.0.0)</a>
+                    <span class="resource-desc">Citable DOI for the reference implementation.</span>
+                    <a href="https://doi.org/10.5281/zenodo.24053492" class="resource-url">doi.org/10.5281/zenodo.24053492</a>
+                </li>
+                <li>
+                    <a href="https://doi.org/10.5281/zenodo.24038037" class="resource-name">Concept DOI</a>
+                    <span class="resource-desc">Cite all versions (v1.0.0 + v2.0.0).</span>
+                    <a href="https://doi.org/10.5281/zenodo.24038037" class="resource-url">doi.org/10.5281/zenodo.24038037</a>
+                </li>
+                <li>
+                    <a href="https://doi.org/10.17605/OSF.IO/9PE5V" class="resource-name">OSF Registration</a>
+                    <span class="resource-desc">Pre-registration and formal record.</span>
+                    <a href="https://doi.org/10.17605/OSF.IO/9PE5V" class="resource-url">doi.org/10.17605/OSF.IO/9PE5V</a>
+                </li>
+                <li>
+                    <a href="https://orcid.org/0009-0003-8903-0029" class="resource-name">ORCID</a>
+                    <span class="resource-desc">Researcher identity.</span>
+                    <a href="https://orcid.org/0009-0003-8903-0029" class="resource-url">orcid.org/0009-0003-8903-0029</a>
+                </li>
+            </ul>
+        </section>
+
+        <div class="note">
+            <strong>Status note:</strong> A reference implementation is built (src/aethermesh/, 107 tests, 79% coverage) and 3 experiments are completed. Experiments use simulated data; no real-world deployment is evaluated. Theorems T1–T3 remain proof sketches, not machine-checked.
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>AetherMesh</h3>
+                <p>Decentralized Peer-to-Peer Agent Synchronization and State CRDTs for Autonomous Multi-Agent Systems. A formal architecture for epidemic gossip propagation and lightweight Byzantine fault tolerance.</p>
+                <p style="margin-top: 1rem; font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">Version 2.0.0 · November 2026</p>
+                <p style="margin-top: 0.25rem;"><a href="https://orcid.org/0009-0003-8903-0029">ORCID: 0009-0003-8903-0029</a></p>
+                <p style="margin-top: 0.25rem;"><a href="mailto:gitdeeper@gmail.com">gitdeeper@gmail.com</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="documentation.html">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Code Repositories</h3>
+                <ul>
+                    <li><a href="https://github.com/gitdeeper15/aethermesh">GitHub (Primary)</a></li>
+                    <li><a href="https://gitlab.com/gitdeeper15/aethermesh">GitLab</a></li>
+                    <li><a href="https://codeberg.org/gitdeeper15/aethermesh">Codeberg</a></li>
+                    <li><a href="https://bitbucket.org/gitdeeper15/aethermesh">Bitbucket</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="https://doi.org/10.5281/zenodo.24053492">Zenodo DOI (v2.0.0)</a></li>
+                    <li><a href="https://doi.org/10.17605/OSF.IO/9PE5V">OSF Registration</a></li>
+                    <li><a href="https://pypi.org/project/aethermesh/">PyPI Package</a></li>
+                    <li><a href="https://orcid.org/0009-0003-8903-0029">ORCID Profile</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© AetherMesh 2026 | All rights reserved</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="https://github.com/gitdeeper15/aethermesh">GitHub</a> ·
+                <a href="https://pypi.org/project/aethermesh/">PyPI</a> ·
+                <a href="https://orcid.org/0009-0003-8903-0029">ORCID</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
